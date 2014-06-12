@@ -1,0 +1,18 @@
+{
+  "name": "Workshop-Be-MEAN-Rotas",
+  "version": "0.0.1",
+  "description": "Aula de rotas",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "routes",
+    "node.js"
+  ],
+  "author": "Suissa",
+  "license": "WTFPL",
+  "dependencies": {
+    "mongoose": "^3.8.12"
+  }
+}
