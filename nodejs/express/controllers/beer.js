@@ -8,6 +8,14 @@ var msg = '';
 var _beer = {
   // função que renderizará o form de criação da cerveja
   add: function(req, res){
+    // renderizando nossa view de create
+    msg = 'Cadastro de cerveja'
+    res.render('beer/create', 
+      {
+        title: 'Adega Be MEAN',
+        msg: msg
+      }
+    );
   },
   // função que renderizará a index
   index: function(req, res){
