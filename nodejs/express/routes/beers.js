@@ -8,7 +8,7 @@ var beer = require('../controllers/beer');
 
 // crio a rota com GET para /beers
 // que será o index do nosso sistema
-// router.get('/', beer.retrieve);
+router.get('/', beer.index);
 
 // router.get('/:id', beer.findOne);
 // router.post('/', beer.create);

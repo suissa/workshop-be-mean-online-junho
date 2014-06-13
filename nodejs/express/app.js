@@ -35,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // usando os módulos de rotas
 app.use('/', routes);
 app.use('/users', users);
+app.use('/beers', beers);
 
 // API REST
 // criando a rota /api/beers usando o módulo api.beers

@@ -8,6 +8,8 @@ var _beer = {
   },
   // função que renderizará a index
   index: function(req, res){
+    // Vamos criar a renderização do nosso INDEX
+    res.render('beer/index', {title: 'Adega Be MEAN'});
   },
   // função que renderizará a consulta da cerveja
   show: function(req, res){
