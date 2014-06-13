@@ -1,10 +1,12 @@
-//- usamos um layout para reaproveitar código
 extends ../layout
 
 block content
-    //- variavel title que vem via res.render
-    //- forma de instanciação de html via variável
   h1= title
-    //- variavel title que vem via res.render
-    //- forma de interpolação de variável em string utilizando #{}
-  p Welcome to #{title}
+  h2 Welcome to #{title}
+  p= msg
+
+  ul
+    for cerveja in cervejas
+      li
+        | #{cerveja.name} - #{cerveja.category}
+
