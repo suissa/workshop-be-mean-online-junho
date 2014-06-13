@@ -1,71 +1,22 @@
 // requisitando o model de Beer
 var Beer = require('../models/beer');
 
-// criando o objeto com as funcionalidades do Mongoose
+// criando o objeto com as funcionalidades visuais do sistema
 var _beer = {
-  create: function(req, res){
-    // Vou receber os dados do meu POST
-    // via req.body
-    var dados = req.body;
-
-    var model = new Beer(dados);
-
-    model.save(function (err, data) {
-      if (err){
-        console.log('Erro: ', err);
-        msg = 'Erro ao salvar a cerveja!';
-      }
-      else{
-        console.log('Cerveja Inserida: ', data);  
-        msg = 'Cerveja salva com sucesso!' 
-      }
-      // enviando a msg para o cliente
-      res.send(msg);
-    });
+  // função que renderizará o form de criação da cerveja
+  add: function(req, res){
   },
-  retrieve: function(req, res){
-    Beer.find({}, function (err, data) {
-      if (err){
-        console.log('Erro: ', err);
-        msg = 'Erro ao listar as cervejas!';
-      }else{
-        console.log('Listagem: ', data);  
-        msg = data; 
-      }
-      // enviamos o a msg como JSON
-      res.json(msg);
-    });
+  // função que renderizará a index
+  index: function(req, res){
   },
+  // função que renderizará a consulta da cerveja
+  show: function(req, res){
+  },
+  // função que renderizará o form de alteração da cerveja
   update: function(req, res){
-    var query = {name: 'Heineken'};
-
-    var mod = {alcohol: 666};
-
-    Beer.update(query, mod, function (err, data) {
-      if (err){
-        console.log('Erro: ', err);
-        msg = 'Erro ao atualizar a cerveja!';
-      }else{
-        console.log('Cerveja atualizada com sucesso', data);
-        msg = 'Cerveja atualizada com sucesso!';    
-      } 
-      // enviando a msg para o cliente
-      res.send(msg);
-    });},
+  },
+  // função que renderizará o form de deleção da cerveja
   delete: function(req, res){
-    var query = {name: 'Heineken'};
- 
-    Beer.remove(query, function(err, data) {
-      if(err) {
-        console.log(err);
-        msg = 'Erro ao deletar a cerveja!';
-      } else {
-        console.log('Cerveja deletada com sucesso', data);
-        msg = 'Cerveja deletada com sucesso!';
-      }
-      // enviando a msg para o cliente
-      res.send(msg);
-    });
   }
 }
 

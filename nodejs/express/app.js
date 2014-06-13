@@ -8,8 +8,13 @@ var bodyParser = require('body-parser');
 // requerindo os módulos de rotas
 var routes = require('./routes/index');
 var users = require('./routes/users');
-// instanciando o módulo de beers
+// instanciando o módulo visual do sistema
 var beers = require('./routes/beers');
+
+// criando o objeto de rotas da API
+var api = {};
+// instanciando o módulo de beers
+api.beers = require('./routes/api/beers');
 
 
 // criando o servidor do express
@@ -32,8 +37,8 @@ app.use('/', routes);
 app.use('/users', users);
 
 // API REST
-// criando a rota /beers usando o módulo beers
-app.use('/beers', beers);
+// criando a rota /api/beers usando o módulo api.beers
+app.use('/api/beers', api.beers);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
