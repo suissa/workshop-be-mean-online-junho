@@ -208,9 +208,17 @@ Agora criamos nossa view que também é parecida com o a save.jade:
 
 #AngularJs
 
+O AngularJS é um framework criado por Misko Hevery e mantido pelo Google.
+Ele trabalha com uma estrutura de MVC e um ótimo sistema de two way
+data-bindings, além de suas diretivas darem super-poderes ao HTML.
+
+Como o AngularJs é um framework e não uma biblioteca como o jQuery, o modo
+de se trabalhar com ele é um pouco diferente do que éramos acostumados.
+
 Para iniciarmos uma aplicação com o AngularJs, precisamos adicionar
 o atributo ng-app em alguma tag do nosso HTML, normalmente em body ou html.
 
+**dica**
 Vamos instalar um servidor web em Node.js para que possamos rodar nossos
 arquivos com AngularJs:
 
@@ -221,6 +229,8 @@ E para rodarmos, basta ir na pasta onde estão nosso arquivos e rodar:
     http-server
     Starting up http-server, serving ./ on port: 8080
     Hit CTRL-C to stop the server
+
+**dica**
 
 Então nosso exercício 01 ficará:
 
@@ -241,6 +251,99 @@ Então nosso exercício 01 ficará:
 
 Então basta entrarmos em http://localhost:8080/ex01.html
 
+Agora vamos salvar como esse exercício como ex02 e vamos modificar para
+que fique dessa forma:
+
+    <!doctype html>
+    <html>
+      <body data-ng-app="workshopBeMEAN">
+
+        Olá mundo, 2 + 2 = {{ 2 + 2}}
+
+        <script src="angular.min.js"></script>
+        <script>
+          angular.module('workshopBeMEAN', []);
+        </script>
+      </body>
+    </html>
+
+Dessa forma estamos setando um nome para nosso app `data-ng-app="workshopBeMEAN"` e você deve ter percebido o data- antes, dessa forma
+seu código ficará válido para HTML5, mas não faz diferença real.
+
+Depois no nosso script nós realmente criamos nosso módulo da aplicação:
+
+    <script>
+      angular.module('workshopBeMEAN', []);
+    </script>
+
+Estamos passando um array vazio, [], pois ainda não temos dependências
+a serem injetadas no nosso módulo. Pois a base do AngularJs é a injeção
+de dependências.
+
+Para exemplificar um uso muito simples da injeção de dependência, imagine
+que você possui um CRUD e está usando dessa forma:
+
+    function create(){
+        var db = mongoose.connection();
+        // já temos o models e os dados e vamos salvar
+        return user.save();
+    };
+    function retrieve(){
+        var db = mongoose.connection();
+        return user.list();
+    };
+    function update(dados){
+        var db = mongoose.connection();
+        return user.update(dados);
+    };
+    function delete(){
+        var db = mongoose.connection();
+        return user.remove();
+    };
+
+E agora seu sistema vai mudar de MongoDb para CouchDb, o que fazer?
+Se o seu código estiver sem injeção de dependência você precisará modificar
+todo seu código, por exemplo:
+
+    function create(){
+        var db = couchDb.connection();
+        // já temos o models e os dados e vamos salvar
+        return user.save();
+    };
+    function retrieve(){
+        var db = couchDb.connection();
+        return user.list();
+    };
+    function update(dados){
+        var db = couchDb.connection();
+        return user.update(dados);
+    };
+    function delete(){
+        var db = couchDb.connection();
+        return user.remove();
+    };
+
+Agora caso você tivesse escrito o código já com injeção de dependência, 
+ele ficaria assim:
+
+    // var db = mongoose.connection();
+    var db = couchDb.connection();
+    function create(db){
+        // já temos o models e os dados e vamos salvar
+        return user.save();
+    };
+    function retrieve(db){
+        return user.list();
+    };
+    function update(db, dados){
+        return user.update(dados);
+    };
+    function delete(db){
+        return user.remove();
+    };
+
+Com isso eu crio a dependência externamente, independente do código de cada
+função, ficando assim mais simples de se trocar as peças injetadas.
 
 
 
