@@ -508,6 +508,133 @@ setar predicate='name' e reverse=!reverse, ou seja, inverte o valor de reverse.
 Quando eu clickar nesse link ele irá setar esses valores fazendo com que o 
 AngularJs ordene automaticamente nosso array.
 
+Para tirarmos proveito da modularização do AngularJs iremos criar um módulo 
+para nosso controller, como no ex09:
+
+    angular.module('workshopBeMEAN', ['workshopFilters', 'workshopControllers']);
+      angular.module('workshopControllers', [])
+      .controller('BeerController', ['$scope', 
+        function($scope){
+          var cerveja1 = {name: 'kaiser', price: 2};
+          var cerveja2 = {name: 'skol', price: 3};
+          var cerveja3 = {name: 'glacial', price: 4};
+          var cerveja4 = {name: 'polar', price: 6};
+          // ADICIONANDO AS CERVEJAS NO SCOPE DO CONTROLLER
+          $scope.cervejas = [cerveja1, cerveja2, cerveja3, cerveja4];
+      }]);
+
+
+Agora vamos ver com utilizamos 2 Controllers na mesma view, para que isso 
+seja possível precisamos utilizar a diretiva `ng-controller`.
+
+    <div data-ng-controller='BeerController'>
+    <div data-ng-controller='EnderecoController'>
+
+Deixando nosso módulo de Controllers da seguinte forma:
+
+    angular.module('workshopControllers', [])
+      .controller('EnderecoController', ['$scope', '$http', 
+        function($scope, $http){
+
+          // exemplo de função que irá rodar com um CLICK
+          $scope.rodar = function(){
+            alert('RODOU');
+          }
+
+          var url = 'http://cors.io/cep.correiocontrol.com.br/02011200.json';
+
+          $http.get(url)
+          .success(function(data) { //função executada após o sucesso da requisição
+            console.log(data);
+            $scope.end = data;
+            // Object {bairro: "Santana", logradouro: "Rua Voluntários da Pátria", cep: "02011200", uf: "SP", localidade: "São Paulo"} 
+          })
+          .error(function(err){ //função executada após o erro da requisição
+            console.log('Error: ', err)
+          });
+        }])
+      .controller('BeerController', ['$scope', '$http',
+        function($scope, $http){
+          var cerveja1 = {name: 'kaiser', price: 2};
+          var cerveja2 = {name: 'skol', price: 3};
+          var cerveja3 = {name: 'glacial', price: 4};
+          var cerveja4 = {name: 'polar', price: 6};
+          // ADICIONANDO AS CERVEJAS NO SCOPE DO CONTROLLER
+          $scope.cervejas = [cerveja1, cerveja2, cerveja3, cerveja4];
+      }]);
+
+Então para usarmos nosso $http, antes precisamos injetá-lo como dependência:
+
+    ['$scope', '$http', function($scope, $http)
+
+Depois já podemos utilizá-lo da seguinte forma:
+
+
+    var url = 'http://cors.io/cep.correiocontrol.com.br/02011200.json';
+
+    $http.get(url)
+    .success(function(data) { //função executada após o sucesso da requisição
+      console.log(data);
+      $scope.end = data;
+      // Object {bairro: "Santana", logradouro: "Rua Voluntários da Pátria", cep: "02011200", uf: "SP", localidade: "São Paulo"} 
+    })
+    .error(function(err){ //função executada após o erro da requisição
+      console.log('Error: ', err)
+    });
+
+**dica**
+
+Estou usando o serviço do `cors.io` para fazer requisições externas, já que 
+os navegadores implementam a política de mesma origem, ou seja, você só pode 
+fazer requisições via navegador para o mesmo servidor, não podendo mudar 
+nenhuma dessas 3 variáveis:
+
+- protocolo
+- host
+- porta
+
+    protocolo://host:porta
+    http://localshot:8080
+
+Então para "burlar" essa política nosso servidor precisa habilitar o CORS, 
+caso não tenhamos acesso ao servidor, podemos utilizar esse serviço web 
+rodando em `http://cors.io`.
+
+No retorno da nossa consulta com $http recebemos 2 promisses:
+
+- success
+- error
+
+Então é nessas promisses que minha lógica de manipulação do retorno irá 
+trabalhar.
+
+    .success(function(data) { //função executada após o sucesso da requisição
+      console.log(data);
+      $scope.end = data;
+      // Object {bairro: "Santana", logradouro: "Rua Voluntários da Pátria", cep: "02011200", uf: "SP", localidade: "São Paulo"} 
+    })
+    .error(function(err){ //função executada após o erro da requisição
+      console.log('Error: ', err)
+    });
+
+Então fica claro de identificar o que cada uma faz e com isso deixamos 
+nosso código mais limpo e legível
+
+Além de usarmos o $http nesse Controller também criamos uma função que será 
+acessada via `ng-click`:
+
+    // exemplo de função que irá rodar com um CLICK
+      $scope.rodar = function(){
+        alert('RODOU');
+      }
+
+Ela será chamada na nossa view da seguinte forma:
+
+    <button data-ng-click='rodar()'>Click aqui</button>
+
+
+
+
 
 
 

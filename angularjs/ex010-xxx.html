@@ -21,11 +21,18 @@
       </ul>
     </div>
 
-    <div data-ng-controller='EnderecoController'>
+    <div data-ng-controller='RedtubeController'>
       <button data-ng-click='rodar()'>Click aqui</button>
-      <p>
-        Endereço: {{ end }}
-      </p>
+      <!-- {{ videos }} -->
+      <ul>
+        <li data-ng-repeat='v in videos'>
+
+          <h3>{{v.video.title}}</h3>
+          <a href={{v.video.url}}>
+            <img data-ng-src="{{ v.video.default_thumb }}" alt="{{v.video.title}}" title="{{v.video.title}}">
+          </a>
+        </li>
+      </ul>
     </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
@@ -33,22 +40,20 @@
       angular.module('workshopBeMEAN', ['workshopFilters', 'workshopControllers'])
 
       angular.module('workshopControllers', [])
-      .controller('EnderecoController', ['$scope', '$http', 
+      .controller('RedtubeController', ['$scope', '$http', 
         function($scope, $http){
 
-          // exemplo de função que irá rodar com um CLICK
           $scope.rodar = function(){
             alert('RODOU');
           }
-
-          var url = 'http://cors.io/cep.correiocontrol.com.br/02011200.json';
+          // var url = 'http://cep.correiocontrol.com.br/02011200.json';
+          var query = 'Sasha%20Gray';
+          var url = 'http://cors.io/api.redtube.com/?data=redtube.Videos.searchVideos&search='+query;
 
           $http.get(url)
           .success(function(data) { //função executada após o sucesso da requisição
             console.log(data);
-            // No sucesso instancio minha variável end no $scope
-            // para ser acessada na minha View
-            $scope.end = data;
+            $scope.videos = data.videos;
             // Object {bairro: "Santana", logradouro: "Rua Voluntários da Pátria", cep: "02011200", uf: "SP", localidade: "São Paulo"} 
           })
           .error(function(err){ //função executada após o erro da requisição
