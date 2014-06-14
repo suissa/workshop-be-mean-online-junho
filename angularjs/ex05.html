@@ -5,10 +5,10 @@
 
     <p>
       <!-- Para utilizarmos um filtro usamos o | 
-          nesse caso estamos usando o filtro de upperCase
+          nesse caso estamos usando o filtro de uppercase
           que coloca em maiúsculo e o reverseName criado por nós
        -->
-      <h3>Olá mundo, {{ nome | reverseName }}</h3>
+      <h3>Olá mundo, {{ nome | reverseName | uppercase }}</h3>
 
       <!-- Adicionamos um input para inserirmos um valor para nome
         adicionamos o atributo nd-model para linkarmos o valor

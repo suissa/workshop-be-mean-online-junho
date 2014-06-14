@@ -415,6 +415,9 @@ Criando o módulo para o filtro e injetando na nossa aplicação:
       });
     </script>
 
+Também podemos utilizar mais de um filtro, apenas adicionando 
+` | nomeFiltro`
 
 
+    <h3>Olá mundo, {{ nome | reverseName | uppercase }}</h3>
 
