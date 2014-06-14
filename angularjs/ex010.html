@@ -47,7 +47,9 @@
           // consulta com CORS
           var url = 'http://cors.io/cep.correiocontrol.com.br/02011200.json';
 
+          // Utilizo o GET para fazer uma consulta na URL
           $http.get(url)
+          // Recebo o retorno como PROMISSES
           .success(function(data) { //função executada após o sucesso da requisição
             console.log(data);
             // No sucesso instancio minha variável end no $scope

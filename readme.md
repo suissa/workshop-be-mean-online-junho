@@ -622,7 +622,23 @@ trabalhar.
     });
 
 Então fica claro de identificar o que cada uma faz e com isso deixamos 
-nosso código mais limpo e legível
+nosso código mais limpo e legível.
+
+Na promisse de success é onde instanciamos a variável end no nosso $scope
+
+    $scope.end = data;
+
+Para que ela seja acessível dentro do nosso Controller na View.
+
+    <div data-ng-controller='EnderecoController'>
+      <button data-ng-click='rodar()'>Click aqui</button>
+      <p>
+        Endereço: {{ end }}
+      </p>
+    </div>
+
+Ou seja, eu só acesso as variáveis e funções do meu $scope dentro do meu 
+ng-controller correto. Pois esses dados só existem nesse $scope local.
 
 Além de usarmos o $http nesse Controller também criamos uma função que será 
 acessada via `ng-click`:
