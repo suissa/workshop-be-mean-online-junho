@@ -142,10 +142,66 @@ Para usarmos o method override com o nosso input, precisamos chamá-lo:
     );
 
 
+Após criarmos o UPDATE, vamos criar o DELETE. Criando inicialmente a 
+nossa rota em routes/beers.js:
 
+    // Rota para remoção da cerveja
+    router.get('/remove/:id', beer.remove);
 
+Depois criamos a função no controller que essencialmente é igual ao show:
 
+    function(req, res){
+        // criando o objeto de query
+        // para fazer a busca da cerveja a ser alterada
+        var query = {_id: req.params.id};
 
+        Beer.findOne(query, function (err, data) {
+          if (err){
+            console.log('Erro: ', err);
+            msg = 'Erro ao buscar a cerveja!';
+            // Enviamos a msg para view
+            res.render('beer/remove', 
+              {
+                title: 'Adega Be MEAN', 
+                cerveja: data,
+                msg: msg
+              }
+            );
+          }else{
+            console.log('Cerveja removida com sucesso', data);
+            msg = 'Cerveja: ' + data.name; 
+            // Enviamos a cerveja para view
+            res.render('beer/remove', 
+              {
+                title: 'Adega Be MEAN', 
+                cerveja: data,
+                msg: msg
+              }
+            );
+          } 
+        });
+
+Agora criamos nossa view que também é parecida com o a save.jade:
+
+      form(action='/api/beers/#{cerveja._id}', method='POST', enctype='application/x-www-form-urlencoded')
+        label
+          | Name:
+          input(type='text', name='name', value='#{cerveja.name}')
+        label
+          | Category:
+          input(type='text', name='category', value='#{cerveja.category}')
+        label
+          | Price:
+          input(type='text', name='price', value='#{cerveja.price}')
+        label
+          | Alcohol:
+          input(type='text', name='alcohol', value='#{cerveja.alcohol}')
+        label
+          | Description:
+          textarea(name='description')
+            | #{cerveja.description}
+        input(type='hidden', name='_method', value='DELETE')
+        input(type='submit', value='REMOVER')
 
 
 

@@ -114,7 +114,36 @@ var _beer = {
 
   },
   // função que renderizará o form de deleção da cerveja
-  delete: function(req, res){
+  remove: function(req, res){
+    // criando o objeto de query
+    // para fazer a busca da cerveja a ser alterada
+    var query = {_id: req.params.id};
+
+    Beer.findOne(query, function (err, data) {
+      if (err){
+        console.log('Erro: ', err);
+        msg = 'Erro ao buscar a cerveja!';
+        // Enviamos a msg para view
+        res.render('beer/remove', 
+          {
+            title: 'Adega Be MEAN', 
+            cerveja: data,
+            msg: msg
+          }
+        );
+      }else{
+        console.log('Cerveja removida com sucesso', data);
+        msg = 'Cerveja: ' + data.name; 
+        // Enviamos a cerveja para view
+        res.render('beer/remove', 
+          {
+            title: 'Adega Be MEAN', 
+            cerveja: data,
+            msg: msg
+          }
+        );
+      } 
+    });
   }
 }
 

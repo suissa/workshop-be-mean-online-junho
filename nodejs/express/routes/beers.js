@@ -19,5 +19,8 @@ router.get('/show/:id', beer.show);
 // Rota para alteração da cerveja
 router.get('/save/:id', beer.save);
 
+// Rota para remoção da cerveja
+router.get('/remove/:id', beer.remove);
+
 
 module.exports = router;
