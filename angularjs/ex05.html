@@ -1,0 +1,41 @@
+<!doctype html>
+<html data-ng-app="workshopBeMEAN">
+  <title>{{ workshop }}</title>
+  <body>
+
+    <p>
+      <!-- Para utilizarmos um filtro usamos o | 
+          nesse caso estamos usando o filtro de upperCase
+          que coloca em maiúsculo e o reverseName criado por nós
+       -->
+      <h3>Olá mundo, {{ nome | reverseName }}</h3>
+
+      <!-- Adicionamos um input para inserirmos um valor para nome
+        adicionamos o atributo nd-model para linkarmos o valor
+        na váriavel do nosso escopo local $scope.nome
+     -->
+      <label>Seu nome: <input type="text" data-ng-model="nome"> </label>
+
+      <!-- O valor em {{ nome }} é atualizado automagicamente através
+          do two-way databinding
+      -->
+      <br>
+      <label>Workshop: <input type="text" data-ng-model="workshop"> </label>
+    </p>
+
+    
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script>
+      angular.module('workshopBeMEAN', [])
+      .filter('reverseName', function () {
+        return function (text) {
+          if(text)
+            return text.split("").reverse().join("");
+        };
+      });
+    </script>
+  </body>
+</html>
+

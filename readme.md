@@ -251,6 +251,8 @@ Então nosso exercício 01 ficará:
 
 Então basta entrarmos em http://localhost:8080/ex01.html
 
+Nosso template engine só executa as expressões que estão entre {{ }}.
+
 Agora vamos salvar como esse exercício como ex02 e vamos modificar para
 que fique dessa forma:
 
@@ -345,9 +347,73 @@ ele ficaria assim:
 Com isso eu crio a dependência externamente, independente do código de cada
 função, ficando assim mais simples de se trocar as peças injetadas.
 
+###Two-way data binding
+O two-way data binding é uma forma onde a view é gerada pelo template, porém
+sem o merge com o Model, deixando com que os dados possam ser atualizados
+a partir do Model e vice-versa. Logo qualquer modificação no Model irá 
+atualizar a View e qualquer modificação na View irá atualizar o Model.
+
+Exemplo:
+    
+
+    <label>Seu nome: 
+      <input type="text" data-ng-model="nome"> 
+    </label>
+    <p>
+      Olá mundo, {{ nome }}
+    </p>
 
 
+Com isso quando escrevemos qualquer coisa no input ele automaticamente 
+atualiza o texto "Olá mundo, " com esse valor. 
 
+Apenas para dar um exemplo de como isso ficaria com jQuery:
+
+    $(document).ready(function(){
+      $('input[type=text]').on('input', function(){
+        var val = $(this).val();
+        $('p').text(val);
+      });
+    });
+
+
+Agora salve como ex04 e modifique o TITLE:
+
+    <title>{{ workshop }}</title>
+
+Depois adicione no BODY um ng-model:
+
+    <label>Workshop: 
+      <input type="text" data-ng-model="workshop"> 
+    </label>
+
+Com isso nós iremos pdoer modificar nosso TITLE dinamicamente. Porém antes 
+preciso colocar meu ng-app acima do TITLE, ficando:
+
+    <html data-ng-app="workshopBeMEAN">
+
+###Filters
+
+Os filtros serverm para transformar e formatar dados já exibidos para 
+o usuário. Para isso precisamos apenas criar seu módulo, sua função e 
+injetar como dependência na nossa aplicação.
+
+Para chamar um filtro precisamos passa apenas ` | nomeFiltro`
+
+    <h3>Olá mundo, {{ nome | reverseName }}</h3>
+
+Criando o módulo para o filtro e injetando na nossa aplicação:
+
+    <script>
+      angular.module('workshopBeMEAN', ['workshopFilters']);
+      angular.module('workshopFilters', [])
+      .filter('reverseName', function () {
+        return function (text) {
+          if(text)
+            return text.split("").reverse().join("");
+        };
+      });
+    </script>
 
 
 
