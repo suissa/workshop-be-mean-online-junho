@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  h1= title
+  h2 Welcome to #{title}
+  p= msg
+
+  form()
+    label
+      | Name:
+      input(type='text', name='name', value='#{cerveja.name}')
+    label
+      | Price:
+      input(type='text', name='price', value='#{cerveja.price}')
+    label
+      | Alcohol:
+      input(type='text', name='alcohol', value='#{cerveja.alcohol}')
+    label
+      | Description:
+      textarea(name='description')
+        | #{cerveja.description}
+

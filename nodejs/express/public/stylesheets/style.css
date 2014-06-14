@@ -7,9 +7,8 @@ a {
   color: #00B7FF;
 }
 
-label, input[type=submit] {
+label, input[type=submit], p.show span {
   display: block;
   float: left;
   clear: both;
-  
 }

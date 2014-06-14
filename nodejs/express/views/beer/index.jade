@@ -8,5 +8,6 @@ block content
   ul
     for cerveja in cervejas
       li
-        | #{cerveja.name} - #{cerveja.category}
+        a(href='/beers/show/#{cerveja._id}')
+          | #{cerveja.name} - #{cerveja.category}
 

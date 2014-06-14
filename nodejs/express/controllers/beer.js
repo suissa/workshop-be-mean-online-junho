@@ -26,7 +26,6 @@ var _beer = {
         console.log('Erro: ', err);
         msg = 'Erro ao listar as cervejas!';
         // Vamos criar a renderização do nosso INDEX
-        // Preciso passar o array de cervejas
         res.render('beer/index', 
           {
             title: 'Adega Be MEAN', 
@@ -52,9 +51,67 @@ var _beer = {
   },
   // função que renderizará a consulta da cerveja
   show: function(req, res){
+    // Primeiramente precisamos consultar ae cerveja
+    var query = {_id: req.params.id};
+
+    Beer.findOne(query, function (err, data) {
+      if (err){
+        console.log('Erro: ', err);
+        msg = 'Erro ao listar as cervejas!';
+
+        res.render('beer/show', 
+          {
+            title: 'Adega Be MEAN',
+            msg: msg
+          }
+        );
+      }else{
+        console.log('Listagem: ', data);  
+        msg = 'Cerveja: ' + data.name; 
+        // Enviamos a cerveja para view
+        res.render('beer/show', 
+          {
+            title: 'Adega Be MEAN', 
+            cerveja: data,
+            msg: msg
+          }
+        );
+      }
+    });
+
   },
   // função que renderizará o form de alteração da cerveja
-  update: function(req, res){
+  save: function(req, res){
+    // criando o objeto de query
+    // para fazer a busca da cerveja a ser alterada
+    var query = {_id: req.params.id};
+
+    Beer.findOne(query, function (err, data) {
+      if (err){
+        console.log('Erro: ', err);
+        msg = 'Erro ao buscar a cerveja!';
+        // Enviamos a msg para view
+        res.render('beer/save', 
+          {
+            title: 'Adega Be MEAN', 
+            cerveja: data,
+            msg: msg
+          }
+        );
+      }else{
+        console.log('Cerveja atualizada com sucesso', data);
+        msg = 'Cerveja: ' + data.name; 
+        // Enviamos a cerveja para view
+        res.render('beer/save', 
+          {
+            title: 'Adega Be MEAN', 
+            cerveja: data,
+            msg: msg
+          }
+        );
+      } 
+    });
+
   },
   // função que renderizará o form de deleção da cerveja
   delete: function(req, res){

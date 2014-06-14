@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1= title
+  h2 Welcome to #{title}
+  p= msg
+
+  p.show
+    span
+      | Name: #{cerveja.name}
+    span
+      | Price: #{cerveja.price}
+    span
+      | Alcohol: #{cerveja.alcohol}
+    span
+      | Description: #{cerveja.description}
+
