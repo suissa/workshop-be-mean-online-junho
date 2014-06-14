@@ -1,0 +1,64 @@
+<!doctype html>
+<html data-ng-app="workshopBeMEAN">
+  <title>{{ workshop }}</title>
+  <body>
+
+    <div data-ng-controller='BeerController'>
+      {{ cervejas }}
+
+      <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+      
+      <a href="" data-ng-click="predicate = 'name'; reverse=xreverse">Nome</a>
+      <ul>
+        <li data-ng-repeat='beer in cervejas | orderBy:predicate:reverse'>
+          {{ beer.name }} - {{ beer.price }}
+        </li>
+      </ul>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script>
+      angular.module('workshopBeMEAN', ['filters'])
+        .controller('BeerController', ['$scope', function($scope){
+            var cervejas = [{
+              name: 'Kaiser', price: 2
+              }, {
+                name: 'Skol', price: 3
+              }, {
+                name: 'Glacial', price: 4
+              }, {
+                name: 'Polar', price: 6
+              }, {
+                name: 'Heineken', price: 10
+              }
+            ];
+
+            $scope.cervejas = cervejas;
+
+        }]);
+
+      angular.module('filters', [])
+        .filter('reverseName', function () {
+          return function (text) {
+            if(text)
+              return text.split("").reverse().join("");
+          };
+        })
+        .filter('truncate', function () {
+          return function (text, length, end) {
+            if (isNaN(length))
+                length = 10;
+            if (end === undefined)
+                end = "...";
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            }
+            else {
+                return String(text).substring(0, length-end.length) + end;
+            }
+          };
+      });
+    </script>
+  </body>
+</html>
+

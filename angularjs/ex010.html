@@ -1,0 +1,99 @@
+<!doctype html>
+<html data-ng-app="workshopBeMEAN">
+  <title>{{ workshop }}</title>
+  <body>
+
+    <div data-ng-controller='BeerController'>
+    <!-- Exibição do array de cervejas setado no BeerController -->
+      {{ cervejas }}
+
+      <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+      
+      <a href="" data-ng-click="predicate = 'name'; reverse=!reverse">Nome</a>
+
+      <!-- Listamos as cervejas do nosso escopo a diretiva ng-repeat -->
+      <ul>
+        <!-- instanciamos o valor de cada cerveja em beer -->
+        <li data-ng-repeat='beer in cervejas | orderBy: predicate:reverse'>
+          <!-- recuperamos os valores de name e price de cada cerveja -->
+          {{ beer.name }} - {{ beer.price }}
+        </li>
+      </ul>
+    </div>
+
+    <div data-ng-controller='RedtubeController'>
+      <button data-ng-click='rodar()'>Click aqui</button>
+      <!-- {{ videos }} -->
+      <ul>
+        <li data-ng-repeat='v in videos'>
+
+          <h3>{{v.video.title}}</h3>
+          <a href={{v.video.url}}>
+            <img data-ng-src="{{ v.video.default_thumb }}" alt="{{v.video.title}}" title="{{v.video.title}}">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script>
+      angular.module('workshopBeMEAN', ['workshopFilters', 'workshopControllers'])
+
+      angular.module('workshopControllers', [])
+      .controller('RedtubeController', ['$scope', '$http', 
+        function($scope, $http){
+
+          $scope.rodar = function(){
+            alert('RODOU');
+          }
+          // var url = 'http://cep.correiocontrol.com.br/02011200.json';
+          var query = 'Sasha%20Gray';
+          var url = 'http://cors.io/api.redtube.com/?data=redtube.Videos.searchVideos&search='+query;
+
+          $http.get(url)
+          .success(function(data) { //função executada após o sucesso da requisição
+            console.log(data);
+            $scope.videos = data.videos;
+            // Object {bairro: "Santana", logradouro: "Rua Voluntários da Pátria", cep: "02011200", uf: "SP", localidade: "São Paulo"} 
+          })
+          .error(function(err){ //função executada após o erro da requisição
+            console.log('Error: ', err)
+          });
+        }])
+      .controller('BeerController', ['$scope', '$http',
+        function($scope, $http){
+          var cerveja1 = {name: 'kaiser', price: 2};
+          var cerveja2 = {name: 'skol', price: 3};
+          var cerveja3 = {name: 'glacial', price: 4};
+          var cerveja4 = {name: 'polar', price: 6};
+
+          // ADICIONANDO AS CERVEJAS NO SCOPE DO CONTROLLER
+          $scope.cervejas = [cerveja1, cerveja2, cerveja3, cerveja4];
+
+      }]);
+
+      angular.module('workshopFilters', [])
+        .filter('reverseName', function () {
+          return function (text) {
+            if(text)
+              return text.split("").reverse().join("");
+          };
+        })
+        .filter('truncate', function () {
+          return function (text, length, end) {
+            if (isNaN(length))
+                length = 10;
+            if (end === undefined)
+                end = "...";
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            }
+            else {
+                return String(text).substring(0, length-end.length) + end;
+            }
+          };
+      });
+    </script>
+  </body>
+</html>
+

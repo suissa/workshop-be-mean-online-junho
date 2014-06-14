@@ -206,8 +206,40 @@ Agora criamos nossa view que também é parecida com o a save.jade:
 
 
 
+#AngularJs
 
+Para iniciarmos uma aplicação com o AngularJs, precisamos adicionar
+o atributo ng-app em alguma tag do nosso HTML, normalmente em body ou html.
 
+Vamos instalar um servidor web em Node.js para que possamos rodar nossos
+arquivos com AngularJs:
+
+    npm install -g http-server
+
+E para rodarmos, basta ir na pasta onde estão nosso arquivos e rodar:
+
+    http-server
+    Starting up http-server, serving ./ on port: 8080
+    Hit CTRL-C to stop the server
+
+Então nosso exercício 01 ficará:
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Workshop Be MEAN</title>
+    </head>
+    <!-- Iniciando minha aplicação com ng-app -->
+    <body ng-app>
+      
+      <!-- Parseando essa expressão -->
+        {{ 2 + 2}}
+        <script src="angular.min.js"></script>
+    </body>
+    </html>
+
+Então basta entrarmos em http://localhost:8080/ex01.html
 
 
 

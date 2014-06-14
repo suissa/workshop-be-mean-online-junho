@@ -1,0 +1,68 @@
+<!doctype html>
+<html data-ng-app="workshopBeMEAN">
+  <title>{{ workshop }}</title>
+  <body>
+
+    <p>
+      <!-- Para utilizarmos um filtro usamos o | 
+          nesse caso estamos usando o filtro de upperCase
+          que apenas coloca em maiúsculo
+       -->
+      <h3>Olá mundo, {{ nome | uppercase | reverseName }}</h3>
+
+      <!-- Adicionamos um input para inserirmos um valor para nome
+        adicionamos o atributo nd-model para linkarmos o valor
+        na váriavel do nosso escopo local $scope.nome
+     -->
+      <label>Seu nome: <input type="text" data-ng-model="nome"> </label>
+
+      <!-- O valor em {{ nome }} é atualizado automagicamente através
+          do two-way databinding
+      -->
+      <br>
+      <label>Workshop: <input type="text" data-ng-model="workshop"> </label>
+
+      <br>
+      <br>
+    </p>
+    <p> 
+
+      <label>Lower<input type="text" data-ng-model="lower" data-ng-init="AAAA"> </label>
+      <br>
+      <strong>Minúsculas</strong>
+      Lowercase {{lower}}: {{ lower | lowercase }}
+    </p>
+    <p>
+        <strong>Número de casas decimais.</strong>
+        Number: {{ 1234 | number:4 }}
+    </p>
+    <p>
+        <strong>Formatação de datas com timestamp</strong>
+        Date: {{ 1395362708482 | date:'dd/MM/yyyy HH:mm:ss Z'}}
+
+    </p>
+    <p> 
+      <strong>Formatação de moeda</strong>
+        <input type="number" ng-model="amount"> <br>
+        default currency symbol (R$): <span id="currency-default">{{amount | currency}}</span><br>
+        custom currency identifier (R$): <span>{{amount | currency:"R$"}}</span>
+    </p>
+    
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script>
+      angular.module('workshopBeMEAN', ['workshopFilters']);
+
+      angular.module('workshopFilters', [])
+      .filter('reverseName', function () {
+        return function (text) {
+          if(text)
+            return text.split("").reverse().join("");
+        };
+      });
+
+    </script>
+  </body>
+</html>
+

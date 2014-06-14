@@ -1,0 +1,26 @@
+<!doctype html>
+<html data-ng-app="workshopOnline">
+  <title>{{ workshop }}</title>
+  <body>
+
+    <!-- Adicionamos um input para inserirmos um valor para nome
+        adicionamos o atributo nd-model para linkarmos o valor
+        na váriavel do nosso escopo local $scope.nome
+     -->
+    <label>Seu nome: <input type="text" data-ng-model="nome"> </label>
+    <!-- Utilizamos o valor de nome que está no nosso escopo local -->
+    Olá mundo, {{ nome }}
+    <!-- O valor em {{ nome }} é atualizado automagicamente através
+        do two-way databinding
+    -->
+
+    <label>Workshop: <input type="text" data-ng-model="workshop"> </label>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script>
+      angular.module('workshopOnline', []);
+    </script>
+  </body>
+</html>
+
