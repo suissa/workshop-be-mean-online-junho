@@ -28,7 +28,7 @@ router.get('/:id', beer.findOne);
 //   beer.create(req, res);
 // });
 router.post('/', beer.create);
-router.post('/:id', beer.update);
+// router.post('/:id', beer.update);
 
 // crio a rota com PUT para /beers/:id
 // o :id é uma variável da nossa rota
@@ -37,6 +37,9 @@ router.post('/:id', beer.update);
 //   // mas usarei ele na minha função de update
 //   beer.update(req, res);
 // });
+router.put('/', function(req, res){
+  console.log('ENTREI AQUI PARA ALTERAR BAH!');
+});
 router.put('/:id', beer.update);
 
 // crio a rota com DELETE para /beers/:id

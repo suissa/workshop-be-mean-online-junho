@@ -56,6 +56,7 @@ var _beer = {
     });
   },
   update: function(req, res){
+    console.log('UPDATE');
     // criando o objeto de query
     // para fazer a busca da cerveja a ser alterada
     var query = {_id: req.params.id};
