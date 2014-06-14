@@ -600,7 +600,8 @@ nenhuma dessas 3 variáveis:
     http://sub.localhost:8080 
     http://localhost:3000
 
-Então para "burlar" essa política nosso servidor precisa habilitar o CORS, 
+Então para "burlar" essa política nosso servidor precisa habilitar o 
+[CORS](http://pt.wikipedia.org/wiki/Cross-origin_resource_sharing), 
 caso não tenhamos acesso ao servidor, podemos utilizar esse serviço web 
 rodando em `http://cors.io`.
 
