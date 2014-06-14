@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-ng-app="workshopOnline">
+<html data-ng-app="workshopBeMEAN">
   <title>{{ workshop }}</title>
   <body>
 
@@ -38,21 +38,23 @@
     </p>
     <p>
         <strong>Formatação de datas com timestamp</strong>
-        Date: {{ 1395362708482 | date:'dd/MM/yyyy HH:mm:ss Z'}}
+        Date: {{ 1402772567464 | date:'dd/MM/yyyy HH:mm:ss Z'}}
 
     </p>
     <p> 
       <strong>Formatação de moeda</strong>
         <input type="number" ng-model="amount"> <br>
-        default currency symbol (R$): <span id="currency-default">{{amount | currency}}</span><br>
-        custom currency identifier (R$): <span>{{amount | currency:"R$"}}</span>
+        default currency symbol ($): 
+          <span id="currency-default">{{amount | currency}}</span><br>
+        custom currency identifier (R$): 
+          <span>{{amount | currency:"R$"}}</span>
     </p>
     
 
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
     <script>
-      angular.module('workshopOnline', [])
+      angular.module('workshopBeMEAN', [])
       .filter('reverseName', function () {
             return function (text) {
               if(text)

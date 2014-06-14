@@ -421,3 +421,100 @@ Também podemos utilizar mais de um filtro, apenas adicionando
 
     <h3>Olá mundo, {{ nome | reverseName | uppercase }}</h3>
 
+Possuímos diversos filtros nativos no AngularJs como:
+
+- uppercase: {{ nome | uppercase }}
+- lowercase: {{ nome | lowercase }}
+- number: {{ 1234 | number:2 }}
+- date: {{ 1402772567464 | date:'dd/MM/yyyy HH:mm:ss Z'}}
+- currency: {{ amount | currency:"R$" }}
+
+
+###Controllers
+
+Para criarmos um controller precisamos apenas adicionar ele em um módulo, 
+como no exemplo a seguir:
+
+    angular.module('workshopBeMEAN', ['filters'])
+      .controller('BeerController', ['$scope', function($scope){
+        $scope.reverse = false;
+        var cervejas = [{
+          name: 'Kaiser', price: 2
+          }, {
+            name: 'Skol', price: 3
+          }, {
+            name: 'Glacial', price: 4
+          }, {
+            name: 'Polar', price: 6
+          }, {
+            name: 'Heineken', price: 10
+          }
+        ];
+        $scope.cervejas = cervejas;
+      }]);
+
+Em cada controllers nós precisaremos injetar suas dependências, principalmente 
+o $scope que é o nosso Model.
+
+    ['$scope', function($scope)
+
+Eu poderia muito bem passar como dependência apenas via paramêtro:
+
+    function($scope)
+
+Porém quando eu for minificar meu arquivo isso poderá gerar problemas, pois 
+todos os outros controllers também possuem seus scopes. Logo a melhor forma 
+e a mais indicada para injetar as dependências é listá-las antes como string.
+
+Para que eu consiga acessar dados da minha View, preciso adicionar os valores 
+no $scope:
+
+    var cervejas = [{
+      name: 'Kaiser', price: 2
+      }, {
+        name: 'Skol', price: 3
+      }, {
+        name: 'Glacial', price: 4
+      }, {
+        name: 'Polar', price: 6
+      }, {
+        name: 'Heineken', price: 10
+      }
+    ];
+    $scope.cervejas = cervejas;
+
+Com isso eu tenho acesso na minha View com {{ cervejas }}
+
+Então com nosso array acessível na View podemos iterar sobre ele utilizando 
+a diretiva ng-repeat:
+    
+    <ul>
+      <li data-ng-repeat='beer in cervejas | orderBy:predicate:reverse'>
+        {{ beer.name }} - {{ beer.price }}
+      </li>
+    </ul>
+
+Nesse código o `ng-repeat` irá criar uma linha com `<li>` para cada cerveja 
+que exista no nosso array. Muito parecido com o nosso for feito no Jade, porém estamos utilizando um dos filtros mais poderosos que é o orderBy:
+
+    | orderBy:predicate:reverse'
+
+Então esse filtro me diz que preciso ordenar pelo predicate seguindo reverse.
+
+    <a href="" data-ng-click="predicate = 'name'; reverse=!reverse">Nome</a>
+
+Como podemos ver nesse link, possuímos a diretiva `ng-click` a qual irá 
+setar predicate='name' e reverse=!reverse, ou seja, inverte o valor de reverse.
+Quando eu clickar nesse link ele irá setar esses valores fazendo com que o 
+AngularJs ordene automaticamente nosso array.
+
+
+
+
+
+
+
+
+
+
+

@@ -6,11 +6,13 @@
     <div data-ng-controller='BeerController'>
       {{ cervejas }}
 
-      <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+      <pre>Ordenando por predicate = {{predicate}}; reverse = {{reverse}}</pre>
       
-      <a href="" data-ng-click="predicate = 'name'; reverse=xreverse">Nome</a>
+      <a href="" data-ng-click="predicate = 'name'; reverse=!reverse">Nome</a>
       <ul>
+      <!-- Parecido com o nosso for no Jade -->
         <li data-ng-repeat='beer in cervejas | orderBy:predicate:reverse'>
+        <!-- acessando os valores do array -->
           {{ beer.name }} - {{ beer.price }}
         </li>
       </ul>
@@ -19,23 +21,26 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
     <script>
       angular.module('workshopBeMEAN', ['filters'])
-        .controller('BeerController', ['$scope', function($scope){
-            var cervejas = [{
-              name: 'Kaiser', price: 2
-              }, {
-                name: 'Skol', price: 3
-              }, {
-                name: 'Glacial', price: 4
-              }, {
-                name: 'Polar', price: 6
-              }, {
-                name: 'Heineken', price: 10
-              }
-            ];
+      .controller('BeerController', ['$scope', function($scope){
+          $scope.reverse = false;
+        // criamos um array de cervejas
+          var cervejas = [{
+            name: 'Kaiser', price: 2
+            }, {
+              name: 'Skol', price: 3
+            }, {
+              name: 'Glacial', price: 4
+            }, {
+              name: 'Polar', price: 6
+            }, {
+              name: 'Heineken', price: 10
+            }
+          ];
+        // instanciamos nosso array no nosso scope
+        // para que tenhamos acesso à esse array na View
+          $scope.cervejas = cervejas;
 
-            $scope.cervejas = cervejas;
-
-        }]);
+      }]);
 
       angular.module('filters', [])
         .filter('reverseName', function () {
