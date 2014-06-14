@@ -16,6 +16,7 @@ var BeerSchema = new Schema({
   description: { type: String, default: '' },
   alcohol: { type: Number, min: 0},
   category: { type: String, default: ''},
+  price: { type: Number, min: 0},
   created: { type: Date, default: Date.now }
 });
 

@@ -5,10 +5,13 @@ block content
   h2 Welcome to #{title}
   p= msg
 
-  form()
+  form(action='/api/beers/#{cerveja._id}', method='POST', enctype='application/x-www-form-urlencoded')
     label
       | Name:
       input(type='text', name='name', value='#{cerveja.name}')
+    label
+      | Category:
+      input(type='text', name='category', value='#{cerveja.category}')
     label
       | Price:
       input(type='text', name='price', value='#{cerveja.price}')
@@ -19,4 +22,6 @@ block content
       | Description:
       textarea(name='description')
         | #{cerveja.description}
+    input(type='hidden', name='_method', value='PUT')
+    input(type='submit', value='SALVAR')
 

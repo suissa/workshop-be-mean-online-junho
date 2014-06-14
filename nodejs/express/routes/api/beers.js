@@ -28,6 +28,7 @@ router.get('/:id', beer.findOne);
 //   beer.create(req, res);
 // });
 router.post('/', beer.create);
+router.post('/:id', beer.update);
 
 // crio a rota com PUT para /beers/:id
 // o :id é uma variável da nossa rota

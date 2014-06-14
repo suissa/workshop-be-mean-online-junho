@@ -98,6 +98,50 @@ Depois criamos nossa função no controller
           } 
         });
 
+Depois disso precisamos criar nossa view. Como não possuímos o verbo PUT via
+HTML, precisamos emular ele. No caso utilizaremos um input[type=hidden] 
+para enviar o nome do verbo, podendo ser: PUT ou DELETE, via POST. E 
+enviamos o name do input como `_method._ 
+Ficando assim:
+
+    form(action='/api/beers', method='POST')
+        label
+          | Name:
+          input(type='text', name='name', value='#{cerveja.name}')
+        label
+          | Price:
+          input(type='text', name='price', value='#{cerveja.price}')
+        label
+          | Alcohol:
+          input(type='text', name='alcohol', value='#{cerveja.alcohol}')
+        label
+          | Description:
+          textarea(name='description')
+            | #{cerveja.description}
+        input(type='hidden', name='_method', value='PUT')
+        input(type='submit', value='SALVAR')
+
+Sendo que um middleware no Express fará a conversão de POST para PUT.
+O middleware utilizado é o methodOverride.
+
+Não esquecer de instalar localmente:
+        npm install --save method-override
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

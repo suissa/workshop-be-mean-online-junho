@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 
-label, input[type=submit], p.show span {
+label, input[type=submit], p.show span, .btn {
   display: block;
   float: left;
   clear: both;

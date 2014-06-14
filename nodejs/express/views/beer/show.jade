@@ -9,9 +9,12 @@ block content
     span
       | Name: #{cerveja.name}
     span
+      | Category: #{cerveja.category}
+    span
       | Price: #{cerveja.price}
     span
       | Alcohol: #{cerveja.alcohol}
     span
       | Description: #{cerveja.description}
+    a.btn(href='/beers/save/#{cerveja._id}') ALTERAR
 
