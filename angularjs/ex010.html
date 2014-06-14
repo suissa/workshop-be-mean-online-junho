@@ -32,7 +32,9 @@
     <script>
       angular.module('workshopBeMEAN', ['workshopFilters', 'workshopControllers'])
 
+      // Criando módulod e controllers
       angular.module('workshopControllers', [])
+      // Criando o EnderecoController
       .controller('EnderecoController', ['$scope', '$http', 
         function($scope, $http){
 
@@ -41,6 +43,8 @@
             alert('RODOU');
           }
 
+          // utilizo o http://cors.io/ para receber minha 
+          // consulta com CORS
           var url = 'http://cors.io/cep.correiocontrol.com.br/02011200.json';
 
           $http.get(url)

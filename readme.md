@@ -585,7 +585,8 @@ Depois já podemos utilizá-lo da seguinte forma:
 **dica**
 
 Estou usando o serviço do `cors.io` para fazer requisições externas, já que 
-os navegadores implementam a política de mesma origem, ou seja, você só pode 
+os navegadores implementam a política de mesma origem 
+([Same-origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)), ou seja, você só pode 
 fazer requisições via navegador para o mesmo servidor, não podendo mudar 
 nenhuma dessas 3 variáveis:
 
@@ -594,7 +595,9 @@ nenhuma dessas 3 variáveis:
 - porta
 
     protocolo://host:porta
-    http://localshot:8080
+    http://localhost:8080 é diferente de:
+    https://sub.localhost:8080 
+    http://localhost:3000
 
 Então para "burlar" essa política nosso servidor precisa habilitar o CORS, 
 caso não tenhamos acesso ao servidor, podemos utilizar esse serviço web 
