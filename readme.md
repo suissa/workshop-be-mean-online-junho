@@ -596,7 +596,8 @@ nenhuma dessas 3 variáveis:
 
     protocolo://host:porta
     http://localhost:8080 é diferente de:
-    https://sub.localhost:8080 
+    https://localhost:8080 
+    http://sub.localhost:8080 
     http://localhost:3000
 
 Então para "burlar" essa política nosso servidor precisa habilitar o CORS, 
