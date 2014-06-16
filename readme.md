@@ -653,6 +653,146 @@ Ela será chamada na nossa view da seguinte forma:
 
     <button data-ng-click='rodar()'>Click aqui</button>
 
+###Rotas
+
+Vamos iniciar esse módulo clonando o seed do AngularJs.
+
+    git clone git://github.com/angular/angular-seed.git
+
+Depois de entrar na pasta angular-seed, você verá o arquivo `bower.json`.
+Para instalarmos nossos assets de frontend, precisamos instalar o Bower antes.
+
+    npm install -g bower
+
+Agora localmente primeiro vamos rodar:
+
+    npm install
+
+Para iniciar nosso projeto precisamos apenas rodar:
+
+    npm start
+
+Depois conferir me `localhost:8000/app`.
+
+
+###Routes
+O nosso roteamento se dá apenas no navegador sem que precisemos requisitar 
+nenhum dado no nosso servidor. Já que o AngularJs é um framework para 
+Single Page Applications ele irá gerenciar todas essas rotas localmente, 
+emulando a troca das URL utilizando a History API e PushState.
+
+Para definirmos nossas rotas iremos utilizar o `$routeProvider`.
+
+    config(['$routeProvider', function($routeProvider) {
+      $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+      $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+      $routeProvider.otherwise({redirectTo: '/view1'});
+    }])
+
+Onde em `when` eu irei setar minha rota, passando sua url e um objeto com 
+meu Template, `templateUrl`, e meu Controller, `controller`.
+
+####templateUrl
+O templateUrl é a URL para a nossa View a ser renderizada.
+
+####controller
+O controller irá chamar a função setada nele.
+
+####otherwise
+É a função parecida com o default do switch, ou seja, caso a rota 
+requisitada não exista ele irá redireciar para essa.
+
+Após criarmos nossa rota em config, precisamos criar nossa view em
+`partials/beers/index.html`
+
+    <h3>
+      {{ workshop }}
+    </h3>
+
+    INDEX DAS CERVEJAS
+
+Depois vamos criar nosso controller `BeersIndexCtrl`:
+
+    .controller('BeersIndexCtrl', ['$scope', function ($scope) {
+      $scope.workshop = 'Workshop Be MEAN';
+    }])
+
+Passando apenas a variável workshop para ser mostrada na View.
+
+No `app/index.html` a linha mais importante para renderizar as views é 
+a seguinte:
+
+    <div ng-view></div>
+
+Pois o `ng-view` é o responsável por renderizar as views.
+
+Agora vamos criar a View list.html e modificar na nossa rota.
+
+    $routeProvider.when('/beers', {
+        templateUrl: 'partials/beers/list.html', 
+        controller: 'BeersIndexCtrl'
+      });
+
+Copiando o código do nosso exercício 08 nossa View lista ficará:
+
+    <h3>
+      {{ workshop }}
+    </h3>
+      
+    <!-- Usando o filtro de ordenação -->
+    <a href="" data-ng-click="reverse=!reverse">
+      Ordenar por {{ predicate }} - {{ !reverse }}
+    </a>
+        
+    <!-- Vamos listar nosso array usando o ng-repeat -->
+    <ul>
+    <!-- Parecido com o nosso for no Jade -->
+      <li data-ng-repeat='beer in cervejas | orderBy:predicate:reverse'>
+      <!-- acessando os valores do array -->
+        {{ beer.name }} - {{ beer.price }}
+      </li>
+    </ul>
+
+Copiamos o código do controller também ficando assim:
+
+    controller('BeersIndexCtrl', ['$scope', function ($scope) {
+      $scope.workshop = 'Workshop Be MEAN';
+      
+      // Código colado do exercicio 08
+      $scope.reverse = false;
+      $scope.predicate = 'name';
+
+      // criamos um array de cervejas
+      var cervejas = [{
+        name: 'Kaiser', price: 2
+        }, {
+          name: 'Skol', price: 3
+        }, {
+          name: 'Glacial', price: 4
+        }, {
+          name: 'Polar', price: 6
+        }, {
+          name: 'Heineken', price: 10
+        }
+      ];
+
+      // instanciamos nosso array no nosso scope
+      // para que tenhamos acesso à esse array na View
+      $scope.cervejas = cervejas;
+      
+      }])
+
+Com isso na nossa rota /beers já temos uma listagem das cervejas com 
+ordenção por nome.
+
+Para entendermos mais um pouco como as coisas funcionam no AngularJs 
+vamos pegar nosso exercicio 10 e copiar seu código do $http.
+
+
+
+
+
+
 
 
 
