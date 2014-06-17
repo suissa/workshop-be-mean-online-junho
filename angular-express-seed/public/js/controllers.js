@@ -25,28 +25,24 @@ angular.module('myApp.controllers', []).
     // write Ctrl here
 
   }).
-  controller('BeersIndexCtrl', ['$scope', function ($scope) {
+  controller('BeersIndexCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.workshop = 'Workshop Be MEAN';
 
     // Código colado do exercicio 08
     $scope.reverse = false;
     $scope.predicate = 'price';
+    $scope.cervejas = [];
     // criamos um array de cervejas
     // Precisamos buscar nosssas cervejas na nossa API
-    var cervejas = [{
-      name: 'Kaiser', price: 2
-      }, {
-        name: 'Skol', price: 3
-      }, {
-        name: 'Glacial', price: 4
-      }, {
-        name: 'Polar', price: 6
-      }, {
-        name: 'Heineken', price: 10
-      }
-    ];
-  // instanciamos nosso array no nosso scope
-  // para que tenhamos acesso à esse array na View
-    $scope.cervejas = cervejas;
+    var url = '/api/beers';
+
+    $http.get(url)
+    .success(function(data){
+      $scope.cervejas = data;
+      console.log('Cervejas', $scope.cervejas);
+    })
+    .error(function(err){
+      console.log('Error: ', err);
+    });
 
   }]);
