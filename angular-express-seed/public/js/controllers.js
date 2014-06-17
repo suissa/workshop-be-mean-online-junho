@@ -30,7 +30,7 @@ angular.module('myApp.controllers', []).
 
     // Código colado do exercicio 08
     $scope.reverse = false;
-    $scope.predicate = 'price';
+    $scope.predicate = 'name';
     $scope.cervejas = [];
     // criamos um array de cervejas
     // Precisamos buscar nosssas cervejas na nossa API
