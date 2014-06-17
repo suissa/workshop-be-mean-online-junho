@@ -1,0 +1,13 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "*",
+    "errorhandler": "*",
+    "express": "*",
+    "jade": "*",
+    "method-override": "*",
+    "morgan": "*"
+  }
+}
