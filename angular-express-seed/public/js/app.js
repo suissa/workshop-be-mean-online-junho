@@ -18,6 +18,11 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/partial2',
       controller: 'MyCtrl2'
     }).
+    // criando a rota de listagem das cervejas
+    when('/beers', {
+      templateUrl: 'partials/list',
+      controller: 'BeersIndexCtrl'
+    }).
     otherwise({
       redirectTo: '/view1'
     });

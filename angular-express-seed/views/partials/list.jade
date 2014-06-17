@@ -1,0 +1,7 @@
+h3
+  | {{ workshop }}
+a(href='', data-ng-click='reverse=!reverse')
+  | Ordenar por {{ predicate }} - {{ !reverse }}
+ul
+  li(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
+    | {{ beer.name }} - {{ beer.price }}
