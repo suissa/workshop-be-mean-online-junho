@@ -8,6 +8,7 @@
     "express": "*",
     "jade": "*",
     "method-override": "*",
-    "morgan": "*"
+    "morgan": "*",
+    "mongoose": "^3.8.12"
   }
 }

@@ -32,6 +32,7 @@ angular.module('myApp.controllers', []).
     $scope.reverse = false;
     $scope.predicate = 'price';
     // criamos um array de cervejas
+    // Precisamos buscar nosssas cervejas na nossa API
     var cervejas = [{
       name: 'Kaiser', price: 2
       }, {
