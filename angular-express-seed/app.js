@@ -74,7 +74,7 @@ console.log(beer);
 //   // passando req e res como parametro
 //   beer.retrieve(req, res);
 // });
-// app.get('/api/beers', beer.retrieve);
+app.get('/api/beers', beer.retrieve);
 
 // Criar a rota para consultar uma cerveja
 // utilizando GET para /beers/:id
@@ -84,7 +84,7 @@ console.log(beer);
 //   beer.findOne(req, res);
 //   // Então preciso criar essa função no meu controller
 // });
-// app.get('/api/beers:id', beer.findOne);
+app.get('/api/beers:id', beer.findOne);
 
 // crio a rota com POST para /beers
 // app.post('/', function(req, res){
