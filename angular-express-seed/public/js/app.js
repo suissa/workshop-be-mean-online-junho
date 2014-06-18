@@ -20,7 +20,7 @@ config(function ($routeProvider, $locationProvider) {
     }).
     // criando a rota de listagem das cervejas
     when('/beers', {
-      templateUrl: 'partials/list',
+      templateUrl: 'expose/beers/list',
       controller: 'BeersIndexCtrl'
     }).
     otherwise({

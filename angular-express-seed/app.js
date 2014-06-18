@@ -49,15 +49,12 @@ if (env === 'production') {
 // serve index and view partials
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
+app.get('/expose/:dir/:name', routes.expose);
 
 // JSON API
 app.get('/api/name', api.name);
 
 // API REST
-// criando a rota /api/beers usando o módulo api.beers
-// app.use('/api/beers', api.beers);
-
-
 // criando o objeto de rotas da API
 var api = {};
 // requisitando nosso controller
