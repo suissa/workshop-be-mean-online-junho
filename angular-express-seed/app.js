@@ -60,10 +60,10 @@ var api = {};
 // requisitando nosso controller
 api.beer = require('./controllers/api/beer');
 app.get('/api/beers', api.beer.retrieve);
-app.get('/api/beers:id', api.beer.findOne);
+app.get('/api/beers/:id', api.beer.findOne);
 app.post('/api/beers', api.beer.create);
-app.put('/api/beers:id', api.beer.update);
-app.delete('/api/beers:id', api.beer.delete);
+app.put('/api/beers/:id', api.beer.update);
+app.delete('/api/beers/:id', api.beer.delete);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

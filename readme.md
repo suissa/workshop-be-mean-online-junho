@@ -726,6 +726,8 @@ a seguinte:
 
 Pois o `ng-view` é o responsável por renderizar as views.
 
+
+###Listar
 Agora vamos criar a View list.html e modificar na nossa rota.
 
     $routeProvider.when('/beers', {
@@ -830,6 +832,7 @@ vamos ver como vai ficar nossa função `orderBy` no controller `BeersIndexCtrl`
 
 Setando o `$scope.reverse = !scope.reverse` estamos invertendo a nossa listagem, então quando você clickar novamente no mesmo campo ele apenas inverterá a seleção.
 
+###Integração com o exercício do Express
 Agora vamos integrar a nossa API que criamos no Express anteriormente,  basta seguir esses passos:
 
 1 - Copiar a pasta controllers do Express para o Angular Express Seed
@@ -856,10 +859,10 @@ As rotas vamos precisar integrar manualmente, então nosso `app.js` do Angular E
     // requisitando nosso controller
     api.beer = require('./controllers/api/beer');
     app.get('/api/beers', api.beer.retrieve);
-    app.get('/api/beers:id', api.beer.findOne);
+    app.get('/api/beers/:id', api.beer.findOne);
     app.post('/api/beers', api.beer.create);
-    app.put('/api/beers:id', api.beer.update);
-    app.delete('/api/beers:id', api.beer.delete);
+    app.put('/api/beers/:id', api.beer.update);
+    app.delete('/api/beers/:id', api.beer.delete);
 
     // redirect all others to the index (HTML5 history)
     app.get('*', routes.index);
@@ -937,8 +940,66 @@ E agora corrigimos nossa rota `/beers` no app do AngularJs:
 
 Pronto. Agora sempre vamos buscar nossas views utilizando a rota `expose/:dir:name` deixando assim nossa função de partials mais genérica.
 
+###Consultar
+Nesse ponto já integramos nossa listagem em MEAN, precisamos agora fazer a consulta individual de cada cerveja, então vamos refatorar nossa view `list`:
+
+    tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
+      td 
+        a(ng-href='/beers/{{beer._id}}')
+          {{ beer.name }}
+      td 
+        a(ng-href='/beers/{{beer._id}}')
+          {{ beer.category }}
+
+Depois de colocarmos um link para cada cerveja no formato `/beers/:id` precisamos criar essa rota no AngularJs:
+
+    .when('/beers/:id', {
+      templateUrl: 'expose/beers/show',
+      controller: 'BeersShowCtrl'
+    }).
+
+Vamos criar a nossa view `beers/show.jade`:
+    
+    h3
+      | {{ workshop }}
+
+    ul
+      h4 {{ cerveja.name }}
+      li
+        | Name: {{ cerveja.name }}
+      li
+        | Category: {{ cerveja.category }}
+      li
+        | Alcohol: {{ cerveja.alcohol }}
+      li
+        | Price: {{ cerveja.price }}
+      li
+        | Description: {{ cerveja.description }}
+
+Depois disso criar o controller `BeersShowCtrl`:
 
 
+    controller('BeersShowCtrl', ['$scope', '$http', '$routeParams', 
+      function ($scope, $http, $routeParams) {
+      $scope.workshop = 'Workshop Be MEAN';
+
+      // Precisamos buscar nosssa cerveja na nossa API
+      var id = $routeParams.id;
+      var url = '/api/beers/'+id;
+
+      $http.get(url)
+      .success(function(data){
+        $scope.cerveja = data;
+        console.log('Cerveja', $scope.cerveja);
+      })
+      .error(function(err){
+        console.log('Error: ', err);
+      });
+
+    }])
+
+
+E pronto quando clickarmos em qualquer link da nossa listagem das cervejas vamos entrar na rota que irá mostrar os dados da cerveja.
 
 
 

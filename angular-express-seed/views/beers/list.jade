@@ -1,7 +1,7 @@
 h3
   | {{ workshop }}
 h4 Listagem das cervejas
-table
+table.tb-list
   thead
     tr
       th 
@@ -10,5 +10,9 @@ table
         a.order(data-ng-click='orderBy(\'category\')') Category
   tbody
     tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
-      td {{ beer.name }}
-      td {{ beer.category }}
+      td 
+        a(ng-href='/beers/{{beer._id}}')
+          {{ beer.name }}
+      td 
+        a(ng-href='/beers/{{beer._id}}')
+          {{ beer.category }}

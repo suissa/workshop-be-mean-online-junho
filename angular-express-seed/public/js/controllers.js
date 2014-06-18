@@ -50,4 +50,22 @@ angular.module('myApp.controllers', []).
       $scope.reverse = !$scope.reverse;
     }
 
+  }]).
+  controller('BeersShowCtrl', ['$scope', '$http', '$routeParams', 
+    function ($scope, $http, $routeParams) {
+    $scope.workshop = 'Workshop Be MEAN';
+
+    // Precisamos buscar nosssa cerveja na nossa API
+    var id = $routeParams.id;
+    var url = '/api/beers/'+id;
+
+    $http.get(url)
+    .success(function(data){
+      $scope.cerveja = data;
+      console.log('Cerveja', $scope.cerveja);
+    })
+    .error(function(err){
+      console.log('Error: ', err);
+    });
+
   }]);

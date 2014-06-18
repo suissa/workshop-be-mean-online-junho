@@ -34,3 +34,9 @@ table th a.order {
   color: #0054a9;
   cursor: pointer;
 }
+
+.tb-list {
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
