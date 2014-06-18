@@ -2,31 +2,20 @@
   {{ workshop }}
 </h3>
 
-<!-- Usando o filtro de ordenação -->
-<a href="" data-ng-click="reverse=!reverse">
-  Ordenar por {{ predicate }} - {{ !reverse }}
-</a>
-
-<!-- Vamos listar nosso array usando o ng-repeat -->
-<ul>
-<!-- Parecido com o nosso for no Jade -->
-  <li data-ng-repeat='beer in cervejas | orderBy:predicate:reverse'>
-  <!-- acessando os valores do array -->
-    {{ beer.name }} - {{ beer.price }}
-  </li>
-</ul>
+<h4>Listagem das cervejas</h4>
 
 <table>
   <thead>
     <tr>
-      <th></th>
-      <th></th>
+      <th data-ng-click="orderBy('name')">Name</th>
+      <th data-ng-click="orderBy('price')">Category</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td></td>
-      <td></td>
+    <tr data-ng-repeat='beer in cervejas | orderBy:predicate:reverse'>
+  <!-- acessando os valores do array -->
+      <td>{{ beer.name }}</td>
+      <td>{{ beer.category }}</td>
     </tr>
   </tbody>
 </table>

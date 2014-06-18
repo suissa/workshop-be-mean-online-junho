@@ -28,3 +28,9 @@
   content: "";
   padding: 0;
 }
+
+table th a.order {
+  font-size: 1.2em;
+  color: #0054a9;
+  cursor: pointer;
+}

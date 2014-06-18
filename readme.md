@@ -788,10 +788,49 @@ ordenção por nome.
 Para entendermos mais um pouco como as coisas funcionam no AngularJs 
 vamos pegar nosso exercicio 10 e copiar seu código do $http.
 
+E vamos substituir essas cervejas setadas na mão por uma consulta na nossa 
+API do Node.js
 
+    var url = '/api/beers';
+    
+    $http.get(url)
+    .success(function(data){
+      $scope.cervejas = data;
+      console.log('Cervejas', $scope.cervejas);
+    })
+    .error(function(err){
+      console.log('Error: ', err);
+    });
 
+E corrigimos nossa view `list.jade`:
 
+    h3
+      | {{ workshop }}
+    h4 Listagem das cervejas
+    table
+      thead
+        tr
+          th 
+            a.order(data-ng-click='orderBy(\'name\')') Name
+          th
+            a.order(data-ng-click='orderBy(\'category\')') Category
+      tbody
+        tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
+          td {{ beer.name }}
+          td {{ beer.category }}
 
+Como você deve ter percebido estamos chamando a função orderBy, onde ela 
+irá ordernar nossa tabela a partir dos campos name e categoruy. Então 
+vamos ver como vai ficar nossa função `orderBy` no controller `BeersIndexCtrl`:
+
+    $scope.orderBy = function(predicate){
+      $scope.predicate = predicate;
+      $scope.reverse = !$scope.reverse;
+    }
+
+Setando o `$scope.reverse = !scope.reverse` estamos invertendo a nossa listagem, então quando você clickar novamente no mesmo campo ele apenas inverterá a seleção.
+
+ 
 
 
 

@@ -45,4 +45,9 @@ angular.module('myApp.controllers', []).
       console.log('Error: ', err);
     });
 
+    $scope.orderBy = function(predicate){
+      $scope.predicate = predicate;
+      $scope.reverse = !$scope.reverse;
+    }
+
   }]);

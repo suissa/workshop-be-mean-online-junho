@@ -1,10 +1,14 @@
 h3
   | {{ workshop }}
-p(data-ng-click='reverse=!reverse')
-  | Ordenar por {{ predicate }} - {{ !reverse }}
-ul
-  li(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
-    | {{ beer.name }} - {{ beer.category }}
-
-p
-  | Cervejas: {{ beers }}
+h4 Listagem das cervejas
+table
+  thead
+    tr
+      th 
+        a.order(data-ng-click='orderBy(\'name\')') Name
+      th
+        a.order(data-ng-click='orderBy(\'category\')') Category
+  tbody
+    tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
+      td {{ beer.name }}
+      td {{ beer.category }}
