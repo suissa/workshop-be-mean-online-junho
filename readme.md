@@ -998,6 +998,7 @@ Depois disso criar o controller `BeersShowCtrl`:
 
     }])
 
+Nesse controller usamos o $routeParams do AngularJs para pegar as variáveis da rota, igual o `request.params` do Express.
 
 E pronto quando clickarmos em qualquer link da nossa listagem das cervejas vamos entrar na rota que irá mostrar os dados da cerveja.
 
