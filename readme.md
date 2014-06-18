@@ -830,7 +830,15 @@ vamos ver como vai ficar nossa função `orderBy` no controller `BeersIndexCtrl`
 
 Setando o `$scope.reverse = !scope.reverse` estamos invertendo a nossa listagem, então quando você clickar novamente no mesmo campo ele apenas inverterá a seleção.
 
- 
+Agora vamos integrar a nossa API que criamos no Express anteriormente,  basta seguir esses passos:
+
+1 - Copiar a pasta controllers do Express para o Angular Express Seed
+2 - Copiar a pasta models do Express para o Angular Express Seed
+3 - Passar as rotas do Express para o Angular Express Seed
+
+As rotas vamos precisar integrar manualmente, então nosso `app.js` do Angular Express Seed ficará assim:
+
+
 
 
 
