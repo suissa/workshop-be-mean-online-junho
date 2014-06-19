@@ -1,0 +1,27 @@
+h3 {{ workshop }}
+
+h4 {{ msg }}
+
+form.container-small
+  label
+    | Name:
+    input(type='text', name='cerveja.name', 
+          data-ng-model='cerveja.name')
+  label
+    | Category:
+    input(type='text', name='cerveja.category', 
+          data-ng-model='cerveja.category')
+  label
+    | Price:
+    input(type='text', name='cerveja.price', 
+          data-ng-model='cerveja.price')
+  label
+    | Alcohol:
+    input(type='text', name='cerveja.alcohol', 
+          data-ng-model='cerveja.alcohol')
+  label
+    | Description:
+    textarea(name='description', 
+            data-ng-model='cerveja.description')
+  button(data-ng-click='create(cerveja)')
+    | Criar

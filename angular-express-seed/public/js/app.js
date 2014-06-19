@@ -22,10 +22,22 @@ config(function ($routeProvider, $locationProvider) {
     when('/beers', {
       templateUrl: 'expose/beers/list',
       controller: 'BeersIndexCtrl'
-    })
-    .when('/beers/:id', {
+    }).
+    when('/beers/create', {
+      templateUrl: 'expose/beers/create',
+      controller: 'BeersCreateCtrl'
+    }).
+    when('/beers/:id', {
       templateUrl: 'expose/beers/show',
       controller: 'BeersShowCtrl'
+    }).
+    when('/beers/:id/edit', {
+      templateUrl: 'expose/beers/edit',
+      controller: 'BeersEditCtrl'
+    }).
+    when('/beers/:id/remove', {
+      templateUrl: 'expose/beers/remove',
+      controller: 'BeersRemoveCtrl'
     }).
     otherwise({
       redirectTo: '/view1'

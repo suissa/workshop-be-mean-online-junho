@@ -1,7 +1,7 @@
 h3
   | {{ workshop }}
 h4 Listagem das cervejas
-table.tb-list
+table.container-small
   thead
     tr
       th 
@@ -9,10 +9,10 @@ table.tb-list
       th
         a.order(data-ng-click='orderBy(\'category\')') Category
   tbody
-    tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
+    tr(data-ng-repeat='cerveja in cervejas | orderBy:predicate:reverse')
       td 
-        a(ng-href='/beers/{{beer._id}}')
-          {{ beer.name }}
+        a(data-ng-href='/beers/{{cerveja._id}}')
+          {{ cerveja.name }}
       td 
-        a(ng-href='/beers/{{beer._id}}')
-          {{ beer.category }}
+        a(data-ng-href='/beers/{{cerveja._id}}')
+          {{ cerveja.category }}

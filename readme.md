@@ -727,7 +727,7 @@ a seguinte:
 Pois o `ng-view` é o responsável por renderizar as views.
 
 
-###Listar
+###RETRIEVE
 Agora vamos criar a View list.html e modificar na nossa rota.
 
     $routeProvider.when('/beers', {
@@ -817,9 +817,9 @@ E corrigimos nossa view `list.jade`:
           th
             a.order(data-ng-click='orderBy(\'category\')') Category
       tbody
-        tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
-          td {{ beer.name }}
-          td {{ beer.category }}
+        tr(data-ng-repeat='cerveja in cervejas | orderBy:predicate:reverse')
+          td {{ cerveja.name }}
+          td {{ cerveja.category }}
 
 Como você deve ter percebido estamos chamando a função orderBy, onde ela 
 irá ordernar nossa tabela a partir dos campos name e categoruy. Então 
@@ -832,7 +832,7 @@ vamos ver como vai ficar nossa função `orderBy` no controller `BeersIndexCtrl`
 
 Setando o `$scope.reverse = !scope.reverse` estamos invertendo a nossa listagem, então quando você clickar novamente no mesmo campo ele apenas inverterá a seleção.
 
-###Integração com o exercício do Express
+####Integração com o exercício do Express
 Agora vamos integrar a nossa API que criamos no Express anteriormente,  basta seguir esses passos:
 
 1 - Copiar a pasta controllers do Express para o Angular Express Seed
@@ -940,16 +940,16 @@ E agora corrigimos nossa rota `/beers` no app do AngularJs:
 
 Pronto. Agora sempre vamos buscar nossas views utilizando a rota `expose/:dir:name` deixando assim nossa função de partials mais genérica.
 
-###Consultar
+####Consultar
 Nesse ponto já integramos nossa listagem em MEAN, precisamos agora fazer a consulta individual de cada cerveja, então vamos refatorar nossa view `list`:
 
-    tr(data-ng-repeat='beer in cervejas | orderBy:predicate:reverse')
+    tr(data-ng-repeat='cerveja in cervejas | orderBy:predicate:reverse')
       td 
-        a(ng-href='/beers/{{beer._id}}')
-          {{ beer.name }}
+        a(data-ng-href='/beers/{{cerveja._id}}')
+          {{ cerveja.name }}
       td 
-        a(ng-href='/beers/{{beer._id}}')
-          {{ beer.category }}
+        a(data-ng-href='/beers/{{cerveja._id}}')
+          {{ cerveja.category }}
 
 Depois de colocarmos um link para cada cerveja no formato `/beers/:id` precisamos criar essa rota no AngularJs:
 
@@ -978,7 +978,6 @@ Vamos criar a nossa view `beers/show.jade`:
 
 Depois disso criar o controller `BeersShowCtrl`:
 
-
     controller('BeersShowCtrl', ['$scope', '$http', '$routeParams', 
       function ($scope, $http, $routeParams) {
       $scope.workshop = 'Workshop Be MEAN';
@@ -1001,6 +1000,116 @@ Depois disso criar o controller `BeersShowCtrl`:
 Nesse controller usamos o $routeParams do AngularJs para pegar as variáveis da rota, igual o `request.params` do Express.
 
 E pronto quando clickarmos em qualquer link da nossa listagem das cervejas vamos entrar na rota que irá mostrar os dados da cerveja.
+
+###CREATE
+Antes de criarmos nossas funcionalidades de `UPDATE` e `DELETE` vamos criar a funcionalidade de criação da cerveja, primeiramente criando sua rota no AngularJs:
+
+    when('/beers/create', {
+      templateUrl: 'expose/beers/create',
+      controller: 'BeersCreateCtrl'
+    }).
+
+Agora vamos criar nossa view `create.jade`:
+    
+    h3 {{ workshop }}
+    h4 {{ msg }}
+    form.container-small
+      label
+        | Name:
+        input(type='text', name='cerveja.name', 
+              data-ng-model='cerveja.name')
+      label
+        | Category:
+        input(type='text', name='cerveja.category', 
+              data-ng-model='cerveja.category')
+      label
+        | Price:
+        input(type='text', name='cerveja.price', 
+              data-ng-model='cerveja.price')
+      label
+        | Alcohol:
+        input(type='text', name='cerveja.alcohol', 
+              data-ng-model='cerveja.alcohol')
+      label
+        | Description:
+        textarea(name='description', 
+                data-ng-model='cerveja.description')
+      button(data-ng-click='create(cerveja)')
+        | Criar
+
+
+Logo precisamos ir no nosso controller `BeersCreateCtrl` e adicionar a função `create`:
+
+    controller('BeersCreateCtrl', ['$scope', '$http', function ($scope, $http) {
+      $scope.workshop = 'Workshop Be MEAN';
+      $scope.msg = 'Cadastro de cerveja'
+      $scope.create = function(cerveja){
+        var url = '/api/beers/';
+        
+        console.log(cerveja);
+        $http({
+          method: 'POST',
+          url: url,
+          data: cerveja
+        }).
+        success(function(data){
+          $scope.msg = 'Cerveja ' + cerveja.name + ' criada com SUCESSO';
+        }).
+        error(function(err){
+          console.log('Error: ', err);
+          $scope.msg = 'Error:  ' + err
+        });
+      }
+    }])
+
+Criei um $scope.msg para dar um feedback da ação para o usuário de forma simples. E pronto após isso podemos ir na nossa rota `beers/create` e criarmos nossa cerveja.
+
+###UPDATE
+Depois de listarmos e criarmos nossas cervejas precisamos poder alterá-las também, então dentro da nossa view `show` vamos adicionar um link para o `UPDATE` e para o `DELETE`:
+
+    p
+      a(data-ng-href='beers/{{cerveja._id}}/edit')
+        | Alterar
+    p 
+      a(data-ng-href='beers/{{cerveja._id}}/remove')
+        | Excluir
+
+Após adicionarmos esses links precisamos criar suas respectivas rotas:
+
+    when('/beers/:id/edit', {
+      templateUrl: 'expose/beers/edit',
+      controller: 'BeersEditCtrl'
+    }).
+    when('/beers/:id/remove', {
+      templateUrl: 'expose/beers/remove',
+      controller: 'BeersRemoveCtrl'
+    })
+
+E agora vamos criar seus controllers:
+
+    controller('BeersEditCtrl', ['$scope', '$http', '$routeParams', 
+      function ($scope, $http, $routeParams) {
+      $scope.workshop = 'Workshop Be MEAN';
+
+      // Precisamos buscar nosssa cerveja na nossa API
+      var id = $routeParams.id;
+      var url = '/api/beers/'+id;
+
+    }]).
+    controller('BeersEditCtrl', ['$scope', '$http', '$routeParams', 
+      function ($scope, $http, $routeParams) {
+      $scope.workshop = 'Workshop Be MEAN';
+
+      // Precisamos buscar nosssa cerveja na nossa API
+      var id = $routeParams.id;
+      var url = '/api/beers/'+id;
+
+    }])
+
+Vamos iniciar pela criação da view `edit.jade`:
+
+
+
 
 
 

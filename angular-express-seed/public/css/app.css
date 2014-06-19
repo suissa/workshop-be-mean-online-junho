@@ -28,15 +28,20 @@
   content: "";
   padding: 0;
 }
-
+label {
+  display: block;
+  float: left;
+  width: 100%;  
+}
 table th a.order {
   font-size: 1.2em;
   color: #0054a9;
   cursor: pointer;
 }
 
-.tb-list {
+.container-small {
   width: 200px;
   margin: 0 auto;
   text-align: center;
 }
+

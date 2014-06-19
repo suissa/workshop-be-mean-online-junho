@@ -51,6 +51,28 @@ angular.module('myApp.controllers', []).
     }
 
   }]).
+  controller('BeersCreateCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.workshop = 'Workshop Be MEAN';
+    $scope.msg = 'Cadastro de cerveja'
+    $scope.create = function(cerveja){
+      var url = '/api/beers/';
+      
+      console.table(cerveja);
+      $http({
+        method: 'POST',
+        url: url,
+        data: cerveja
+      }).
+      success(function(data){
+        $scope.msg = 'Cerveja ' + cerveja.name + ' criada com SUCESSO';
+      }).
+      error(function(err){
+        console.log('Error: ', err);
+        $scope.msg = 'Error:  ' + err
+      });
+    }
+
+  }]).
   controller('BeersShowCtrl', ['$scope', '$http', '$routeParams', 
     function ($scope, $http, $routeParams) {
     $scope.workshop = 'Workshop Be MEAN';
@@ -67,5 +89,23 @@ angular.module('myApp.controllers', []).
     .error(function(err){
       console.log('Error: ', err);
     });
+
+  }]).
+  controller('BeersEditCtrl', ['$scope', '$http', '$routeParams', 
+    function ($scope, $http, $routeParams) {
+    $scope.workshop = 'Workshop Be MEAN';
+
+    // Precisamos buscar nosssa cerveja na nossa API
+    var id = $routeParams.id;
+    var url = '/api/beers/'+id;
+
+  }]).
+  controller('BeersEditCtrl', ['$scope', '$http', '$routeParams', 
+    function ($scope, $http, $routeParams) {
+    $scope.workshop = 'Workshop Be MEAN';
+
+    // Precisamos buscar nosssa cerveja na nossa API
+    var id = $routeParams.id;
+    var url = '/api/beers/'+id;
 
   }]);

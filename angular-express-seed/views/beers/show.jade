@@ -13,3 +13,11 @@ ul
     | Price: {{ cerveja.price }}
   li
     | Description: {{ cerveja.description }}
+
+
+p
+  a(data-ng-href='beers/{{cerveja._id}}/edit')
+    | Alterar
+p 
+  a(data-ng-href='beers/{{cerveja._id}}/remove')
+    | Excluir

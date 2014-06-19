@@ -1,0 +1,20 @@
+h3
+  | {{ workshop }}
+
+form(action='/api/beers', method='POST')
+  label
+    | Name:
+    input(type='text', name='name')
+  label
+    | Category:
+    input(type='text', name='category')
+  label
+    | Price:
+    input(type='text', name='price')
+  label
+    | Alcohol:
+    input(type='text', name='alcohol')
+  label
+    | Description:
+    textarea(name='description')
+  input(type='submit', value='Salvar')
