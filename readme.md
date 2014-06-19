@@ -1,5 +1,10 @@
 #Be MEAN - Criando sistemas inteiros apenas com Javascript
 
+##Arquitetura
+Nesse Workshop iremos criar um Single Page App onde nosso Frontend feito com AngularJs consumirá os dados do Backend feito com o Node.js e MongoDb.
+![](https://i.cloudup.com/276gADLNKR.png)
+
+
 ##MongoDb
 ###NoSQL
 O termo NoSQL foi usado pela primeira vez em 1998 como o nome de um banco de dados relacional de código aberto que não possuía um interface SQL. Seu autor, Carlo Strozzi, alega que o movimento NoSQL "é completamente distinto do modelo relacional e portanto deveria ser mais apropriadamente chamado "NoREL" ou algo que produzisse o mesmo efeito". Porém o termo só voltou a ser assunto em 2009 por um funcionário do Rackspace, Eric Evans, quando Johan Oskarsson da Last.fm queria organizar um evento para discutir bancos de dados open source distribuídos. 
@@ -9,7 +14,6 @@ NoSQL são diferentes sistemas de armazenamento que vieram para suprir necessida
 O NoSQL surgiu da necessidade de uma performance superior e de alta escalabilidade. Os atuais bancos de dados relacionais são muito restritos a isso, sendo necessário a distribuição vertical de servidores, ou seja, quanto mais dados, mais memória e mais disco um servidor precisa. O NoSQL tem uma grande facilidade na distribuição horizontal, ou seja, mais dados, mais servidores, não necessariamente de alta performance. Um grande utilizador desse conceito é o google, que usa computadores de pequeno e médio porte, para a distribuição dos dados, essa forma de utilização e muito mais eficiente e econômica. Alem disso, os bancos de dados NoSQL são muito tolerantes a erros. 
 
 No caso dos bancos NoSQL toda a a informação necessária estará agrupada no mesmo registro, ou seja, em vez de você ter o relacionamento entre várias tabelas para formar uma informação ela estará em sua totalidade no mesmo registro. 
-
 
 ####Por que usar?
 Os bancos de dados NoSQL nasceram de necessidades mais específicas, então quase sempre encontramos algum para resolver melhor algum problema. Caso necessitemos de um sistema que tenha como obrigação alta escalabilidade a baixo custo provavelmente usaremos algum banco de dados NoSQL.   
@@ -27,32 +31,32 @@ Os tipo de armazenamento são: Wide Column Store/Column Families, Document Store
 
 #####Key/Value Store
 Esse é o tipo de banco de dados NoSQL mais simples o conceito dele é uma chave e um valor para essa chave, mas ele é o que aguenta mais carga de dados. Esses tipos de bancos de dados, são o que tem a maior escalabilidade. 
-Berkeley DB 
-Tokyo Cabinet 
-Kyoto Cabinet
-Project Voldermort 
-MemcacheDB 
-SimpleBD 
-Redis
-Riak
+- Berkeley DB 
+- Tokyo Cabinet 
+- Kyoto Cabinet
+- Project Voldermort 
+- MemcacheDB 
+- SimpleBD 
+- Redis
+- Riak
 
 #####Wide Columns Store
 Fortemente inspirados pelo BigTable do Google eles suportam várias linhas e colunas, alem disso ele permite subcolunas. Alem do BigTable do google outros que usam essa tecnologia são: 
-HBase(Apache) 
-HiperTable 
-Cassandra(Apache) 
+- HBase(Apache) 
+- HiperTable 
+- Cassandra(Apache) 
 
 #####Document Store
 Baseado em documentos XML ou JSON, podem ser localizados pelo seu id unico ou por qualquer registro que tenha no documento. 
-CouchDB(Apache) 
-MongoDB 
-RavenDB 
+- CouchDB(Apache) 
+- MongoDB 
+- RavenDB 
 
 #####Graph Store
 Com uma complexibilidade maior esses bancos de dados guardam objetos e não registros como os outros tipos de NoSQL. A busca destes itens são feitas pela navegação destes objetos. 
-Neo4J 
-InfoGrid 
-HyperGraphDB 
+- Neo4J 
+- InfoGrid 
+- HyperGraphDB 
 
 Na imagem abaixo podemos ver um gráfico demonstrando a diferença entre o tamanho da base de dados pela complexidade dos seus dados. Assim podemos perceber que os bancos do tipo chave-valor conseguem aguentar mais dados, sendo que seus dados são mais simples, enquanto que os banco do tipo grafo aguentam menos dados porém seus dados são mais complexos.
 
