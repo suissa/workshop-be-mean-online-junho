@@ -2,6 +2,8 @@
 Vamos aprender com esse material a criar um sistema inteiro utilizando apenas nosso querido e amado <3 Javascript. Desde o Frontend até o Banco de Dados.
 
 ##MEAN
+![](https://i.cloudup.com/Taslszh86K.jpg)
+
 ###O que siginifica MEAN?
 Nada mais que a sigla das tecnologias utilizadas:
 - MongoDb
