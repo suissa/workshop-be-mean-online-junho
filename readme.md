@@ -1,3 +1,14 @@
+##MongoDb
+
+##Express
+
+Iremos trabalhar com uma API REST no Express e para isso iremos utilizar 4 verbos diferentes para trabalhar com nossas rotas e para isso faremos um CRUD:
+
+- Create: POST
+- Retrieve: GET
+- Update: PUT
+- Delete: DELETE
+
 Para iniciarmos qualquer funcionalidade vamos pensar 
 no seguinte workflow:
 
@@ -45,15 +56,13 @@ no seguinte workflow:
           }
         });
 
+Com o show funcionando podemos refatorar nossa view `beer/index.jade` para:
 
-Com o show funcionando podemos refatorar nossa listagem das cervejas para:
-//beer/index.jade
-
-      ul
-        for cerveja in cervejas
-          li
-            a(href='/beers/show/#{cerveja._id}')
-              | #{cerveja.name} - #{cerveja.category}
+    ul
+      for cerveja in cervejas
+        li
+          a(href='/beers/show/#{cerveja._id}')
+            | #{cerveja.name} - #{cerveja.category}
 
 Para iniciarmos a função de update, precisamos criar a rota da renderização
 da sua view, /routes/beers.js
@@ -64,39 +73,39 @@ router.get('/save/:id', beer.save);
 Depois criamos nossa função no controller
 
     function(req, res){
-        // criando o objeto de query
-        // para fazer a busca da cerveja a ser alterada
-        var query = {_id: req.params.id};
+      // criando o objeto de query
+      // para fazer a busca da cerveja a ser alterada
+      var query = {_id: req.params.id};
 
-        // crio o objeto de modificação da cerveja
-        // recebendo os dados via req.body
-        var mod = req.body;
+      // crio o objeto de modificação da cerveja
+      // recebendo os dados via req.body
+      var mod = req.body;
 
-        Beer.update(query, mod, function (err, data) {
-          if (err){
-            console.log('Erro: ', err);
-            msg = 'Erro ao atualizar a cerveja!';
-            // Enviamos a msg para view
-            res.render('beer/show', 
-              {
-                title: 'Adega Be MEAN', 
-                cerveja: data,
-                msg: msg
-              }
-            );
-          }else{
-            console.log('Cerveja atualizada com sucesso', data);
-            msg = 'Cerveja atualizada com sucesso!';    
-            // Enviamos a cerveja para view
-            res.render('beer/show', 
-              {
-                title: 'Adega Be MEAN', 
-                cerveja: data,
-                msg: msg
-              }
-            );
-          } 
-        });
+      Beer.update(query, mod, function (err, data) {
+        if (err){
+          console.log('Erro: ', err);
+          msg = 'Erro ao atualizar a cerveja!';
+          // Enviamos a msg para view
+          res.render('beer/show', 
+            {
+              title: 'Adega Be MEAN', 
+              cerveja: data,
+              msg: msg
+            }
+          );
+        }else{
+          console.log('Cerveja atualizada com sucesso', data);
+          msg = 'Cerveja atualizada com sucesso!';    
+          // Enviamos a cerveja para view
+          res.render('beer/show', 
+            {
+              title: 'Adega Be MEAN', 
+              cerveja: data,
+              msg: msg
+            }
+          );
+        } 
+      });
 
 Depois disso precisamos criar nossa view. Como não possuímos o verbo PUT via
 HTML, precisamos emular ele. No caso utilizaremos um input[type=hidden] 
@@ -105,21 +114,21 @@ enviamos o name do input como `_method._
 Ficando assim:
 
     form(action='/api/beers', method='POST')
-        label
-          | Name:
-          input(type='text', name='name', value='#{cerveja.name}')
-        label
-          | Price:
-          input(type='text', name='price', value='#{cerveja.price}')
-        label
-          | Alcohol:
-          input(type='text', name='alcohol', value='#{cerveja.alcohol}')
-        label
-          | Description:
-          textarea(name='description')
-            | #{cerveja.description}
-        input(type='hidden', name='_method', value='PUT')
-        input(type='submit', value='SALVAR')
+      label
+        | Name:
+        input(type='text', name='name', value='#{cerveja.name}')
+      label
+        | Price:
+        input(type='text', name='price', value='#{cerveja.price}')
+      label
+        | Alcohol:
+        input(type='text', name='alcohol', value='#{cerveja.alcohol}')
+      label
+        | Description:
+        textarea(name='description')
+          | #{cerveja.description}
+      input(type='hidden', name='_method', value='PUT')
+      input(type='submit', value='SALVAR')
 
 Sendo que um middleware no Express fará a conversão de POST para PUT.
 O middleware utilizado é o methodOverride.
