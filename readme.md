@@ -1,9 +1,22 @@
 #Be MEAN - Criando sistemas inteiros apenas com Javascript
+Vamos aprender com esse material a criar um sistema inteiro utilizando apenas nosso querido e amado <3 Javascript. Desde o Frontend até o Banco de Dados.
+
+##MEAN
+###O que siginifica MEAN?
+Nada mais que a sigla das tecnologias utilizadas:
+- MongoDb
+- Express
+- AngularJs
+- Node.js
+
+##Por que usar MEAN?
+Hoje essa stack MEAN nos oferece as mesmas funcionalidades que stacks largamente utilizadas como LAMP/MAMP/WAMP adicionando maior performance opr utilizar tecnologias feitas para escalar como Node.js e MongoDb.
+
+Sem contar que o Javascript é a linguagem mais utilizada na Web não precisando muito esforço para entender o porquê já que é a única linguagem que roda nativamente em qualquer navegador e que foi criada especificamente para a Internet, por mais que ainda precise melhorar muito, mas já está no caminho com o EcmaScript 6.
 
 ##Arquitetura
 Nesse Workshop iremos criar um Single Page App onde nosso Frontend feito com AngularJs consumirá os dados do Backend feito com o Node.js e MongoDb.
-![](https://i.cloudup.com/276gADLNKR.png)
-
+![](https://i.cloudup.com/bg9bVWvHGG.png)
 
 ##MongoDb
 ###NoSQL
@@ -66,7 +79,29 @@ Na imagem abaixo podemos ver um gráfico demonstrando a diferença entre o taman
 O MongoDB é um dos bancos NoSQL mais utilizados atualmente pela sua facilidade de instalação, documentação e os diversos drivers para inúmeras linguagens de programação. Ele é um banco de dados orientado a documentos, escalável, livre de esquema, de alto desempenho e código aberto escrito em C++.
 Algumas funcionalidades interessantes do MongoDB são: orientação a documentos(JSON/BSON), suporte a index, replicação e alta disponibilidade, auto-sharding, map/reduce GridFS e suporte comercial da 10gen.
 
+####Schemaless
+![](http://www.greenberg-art.com/.Illustrations/.Humorous/qq1sgMessyDesk.jpg)
+O que significa ser livre de esquema? Basicamente é não precisar ter nenhum objeto identificando como será nosso modelo de persistência, ou seja, não terá nada dizendo o nome dos campos nem seus tipos.
+
+E isso é bom? Dependendo do que você quer fazer sim, ele dá maior liberdade para futuras modificações e maiores possibilidades de modelagem em comparação à relacional.
+
+####JSON/BSON
+![](http://wp.clicrbs.com.br/infosfera/files/2014/04/jason-2.jpg)
+O MongoDb é um banco NoSQL orientado a documento [JSON](http://json.org/), ou seja, ele persiste os dados usando o formato [JSON](http://json.org/) criando assim um formato único de troca de dados em todo stack [MEAN](http://bemean.com.br/).
+
+####Replica
+![](http://images.freshnessmag.com/wp-content/uploads/2010/07/bat-pod-replica-1.jpg)
+Possuímos réplicas na maioria dos bancos de dados relacionais também, ela apenas faz o espelhamento dos seus dados de um servidor para outro.
+
+####Sharding
+![](http://www.codefutures.com/img/dbshards-shardit.gif)
+
+####GridFs
+![](http://www.kratedesign.com/wp-content/uploads/2012/11/less-files-more-miles.jpg)
+
 ##Express
+![](https://i.cloudup.com/OgEsvIwmiL.png)
+
 Iremos trabalhar com uma API REST no Express e para isso iremos utilizar 4 verbos diferentes para trabalhar com nossas rotas e para isso faremos um CRUD:
 
 - Create: POST
