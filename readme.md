@@ -1230,3 +1230,100 @@ Porém vamos fazer uma modificação no controller da nossa API `controllers/api
     }
 
 Mudamos o `res.send` para `res.json` para que nossa requisição do AngularJs não caia no `error`.
+
+
+###DELETE
+Como já havíamos criado a rota do `DELETE` vamos agora criar nossa view, que basicamente é a mesma do show apenas com o botão para deletar.
+
+    h3 {{ workshop }}
+    h4 {{ msg }}
+
+    ul
+      h4 {{ cerveja.name }}
+      li
+        | Name: {{ cerveja.name }}
+      li
+        | Category: {{ cerveja.category }}
+      li
+        | Alcohol: {{ cerveja.alcohol }}
+      li
+        | Price: {{ cerveja.price }}
+      li
+        | Description: {{ cerveja.description }}
+
+    p 
+      button(data-ng-click='remove(cerveja)')
+        | Excluir
+
+Depois alteramos o controller `BeersRemoveCtrl`:
+
+    controller('BeersRemoveCtrl', ['$scope', '$http', '$routeParams', 
+      function ($scope, $http, $routeParams) {
+      $scope.workshop = 'Workshop Be MEAN';
+
+      // Precisamos buscar nosssa cerveja na nossa API
+      var id = $routeParams.id;
+      var url = '/api/beers/'+id;
+      var method = 'GET';
+      $http({
+        method: method,
+        url: url
+      })
+      .success(function(data){
+        $scope.msg = 'Cerveja ' + data.name;
+        $scope.cerveja = data;
+      })
+      .error(function(err){
+        console.log('Error: ', err);
+        $scope.msg = 'Error:  ' + err;
+      });
+
+      // Função de deletar
+      $scope.remove = function(cerveja){    
+        var method = 'DELETE';
+        var query = {
+          _id: cerveja._id
+        };
+
+        var http_settings = {
+          method: method,
+          url: url,
+          data: query
+        };
+        console.log('alterando', http_settings);
+        $http(http_settings)
+        .success(function(data){
+          $scope.msg = 'Cerveja ' + cerveja.name + ' deletada com SUCESSO';
+        })
+        .error(function(err){
+          console.log('Error: ', err);
+          $scope.msg = 'Error:  ' + err;
+        });
+      }
+    }])
+
+Lembrando que precisamos editar o `controllers/api/beer.js` na função `delete` para usa o `res.json` em vez do `res.send`:
+
+    delete: function(req, res){
+      // Criando a query para remover a cerveja pelo _id
+      var query = {_id: req.params.id};
+
+      Beer.remove(query, function(err, data) {
+        if(err) {
+          console.log(err);
+          // msg = 'Erro ao deletar a cerveja!';
+          msg = 0;
+        } else {
+          console.log('Cerveja deletada com sucesso', data);
+          // msg = 'Cerveja deletada com sucesso!';
+          // retorna a quantidade de elementos deletados
+          msg = data;
+        }
+        // enviando a msg para o cliente
+        res.json(msg);
+      });
+    }
+
+
+
+

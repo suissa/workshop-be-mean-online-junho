@@ -93,7 +93,7 @@ var _beer = {
         msg = data;
       }
       // enviando a msg para o cliente
-      res.send(msg);
+      res.json(msg);
     });
   }
 }

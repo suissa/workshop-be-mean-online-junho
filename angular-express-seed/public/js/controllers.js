@@ -141,5 +141,40 @@ angular.module('myApp.controllers', []).
     // Precisamos buscar nosssa cerveja na nossa API
     var id = $routeParams.id;
     var url = '/api/beers/'+id;
+    var method = 'GET';
+    $http({
+      method: method,
+      url: url
+    })
+    .success(function(data){
+      $scope.msg = 'Cerveja ' + data.name;
+      $scope.cerveja = data;
+    })
+    .error(function(err){
+      console.log('Error: ', err);
+      $scope.msg = 'Error:  ' + err;
+    });
 
+    // Função de deletar
+    $scope.remove = function(cerveja){    
+      var method = 'DELETE';
+      var query = {
+        _id: cerveja._id
+      };
+
+      var http_settings = {
+        method: method,
+        url: url,
+        data: query
+      };
+      console.log('alterando', http_settings);
+      $http(http_settings)
+      .success(function(data){
+        $scope.msg = 'Cerveja ' + cerveja.name + ' deletada com SUCESSO';
+      })
+      .error(function(err){
+        console.log('Error: ', err);
+        $scope.msg = 'Error:  ' + err;
+      });
+    }
   }]);

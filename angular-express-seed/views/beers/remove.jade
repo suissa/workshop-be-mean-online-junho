@@ -1,0 +1,19 @@
+h3 {{ workshop }}
+h4 {{ msg }}
+
+ul
+  h4 {{ cerveja.name }}
+  li
+    | Name: {{ cerveja.name }}
+  li
+    | Category: {{ cerveja.category }}
+  li
+    | Alcohol: {{ cerveja.alcohol }}
+  li
+    | Price: {{ cerveja.price }}
+  li
+    | Description: {{ cerveja.description }}
+
+p 
+  button(data-ng-click='remove(cerveja)')
+    | Excluir
