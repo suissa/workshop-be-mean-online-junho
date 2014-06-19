@@ -1327,3 +1327,39 @@ Lembrando que precisamos editar o `controllers/api/beer.js` na função `delete`
 
 
 
+##Projeto Final
+Criar um sistema que seja composto de lojas de cervejas, onde os usuários poderão se cadastrar e falar que tomaram as cervejas. Nisso teremos basiacamente 3 coleções:
+
+- users
+- shops
+- beers
+
+Onde beers terá um array que conterá o ObjectId de cada cerveja que eles vendam e os usuarios possuirão um array com cada cerveja que já tomaram.
+
+O sistema deverá ser um Single Page App onde o usuário se cadastrará e pesquisará pelas cervejas, **dica: use regex na query**, a cerveja que ele quiser poderá adicionar em sua coleção. E nessa cerveja além dos seus dados também mostrará quais lojas vendem.
+
+Model beer:
+- name
+- price
+- alcohol
+- category
+- description
+
+Model shop:
+- name
+- address //object {logradouro, nome, numero, complemento, bairro, cidade, estado, país}
+- beers
+
+Model user:
+- login
+- email
+- password //criptografado
+- birth //data de nascimento
+- beers
+
+
+
+
+
+
+
