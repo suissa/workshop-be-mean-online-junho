@@ -117,11 +117,6 @@ angular.module('myApp.controllers', []).
     // Função de alterar
     $scope.update = function(cerveja){    
       var method = 'PUT';
-
-      // Preciso deletar o _id do objeto a ser alterado para 
-      // não dar erro com o Mongoose
-      delete cerveja._id;
-
       var http_settings = {
         method: method,
         url: url,
