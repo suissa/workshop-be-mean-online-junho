@@ -59,14 +59,10 @@ Na imagem abaixo podemos ver um gráfico demonstrando a diferença entre o taman
 ![](http://blog.3pillarglobal.com/sites/default/files/nosql-3a.png)
 
 ###Introdução
-
-  O MongoDB é um dos bancos NoSQL mais utilizados atualmente pela sua facilidade de instalação, documentação e os diversos drivers para inúmeras linguagens de programação. Ele é um banco de dados orientado a documentos, escalável, livre de esquema, de alto desempenho e código aberto escrito em C++.
-  Algumas funcionalidades interessantes do MongoDB são: orientação a documentos(JSON/BSON), suporte a index, replicação e alta disponibilidade, auto-sharding, map/reduce GridFS e suporte comercial da 10gen.
-
-
+O MongoDB é um dos bancos NoSQL mais utilizados atualmente pela sua facilidade de instalação, documentação e os diversos drivers para inúmeras linguagens de programação. Ele é um banco de dados orientado a documentos, escalável, livre de esquema, de alto desempenho e código aberto escrito em C++.
+Algumas funcionalidades interessantes do MongoDB são: orientação a documentos(JSON/BSON), suporte a index, replicação e alta disponibilidade, auto-sharding, map/reduce GridFS e suporte comercial da 10gen.
 
 ##Express
-
 Iremos trabalhar com uma API REST no Express e para isso iremos utilizar 4 verbos diferentes para trabalhar com nossas rotas e para isso faremos um CRUD:
 
 - Create: POST
@@ -78,48 +74,50 @@ Para iniciarmos qualquer funcionalidade vamos pensar
 no seguinte workflow:
 
 1 cria uma rota no módulo. Ex.: /routes/beers
+
     // Rota para consulta da cerveja   
     router.get('/show', beer.show);
 
 2 Criar a view a ser renderizada
+
     p.show
-        span
-          | Name: #{cerveja.name}
-        span
-          | Price: #{cerveja.price}
-        span
-          | Alcohol: #{cerveja.alcohol}
-        span
-          | Description: #{cerveja.description}
+      span
+        | Name: #{cerveja.name}
+      span
+        | Price: #{cerveja.price}
+      span
+        | Alcohol: #{cerveja.alcohol}
+      span
+        | Description: #{cerveja.description}
 
 3 cria uma função no controller. Ex.: /controllers/beer
-        function(req, res){
-        // Primeiramente precisamos consultar ae cerveja
-        var query = {_id: req.params.id};
-        Beer.findOne(query, function (err, data) {
-          if (err){
-            console.log('Erro: ', err);
-            msg = 'Erro ao listar as cervejas!';
 
-            res.render('beer/show', 
-              {
-                title: 'Adega Be MEAN',
-                msg: msg
-              }
-            );
-          }else{
-            console.log('Listagem: ', data);  
-            msg = 'Cerveja: ' + data.name; 
-            // Enviamos a cerveja para view
-            res.render('beer/show', 
-              {
-                title: 'Adega Be MEAN', 
-                cerveja: data,
-                msg: msg
-              }
-            );
+    function(req, res){
+    // Primeiramente precisamos consultar ae cerveja
+    var query = {_id: req.params.id};
+    Beer.findOne(query, function (err, data) {
+      if (err){
+        console.log('Erro: ', err);
+        msg = 'Erro ao listar as cervejas!';
+        res.render('beer/show', 
+          {
+            title: 'Adega Be MEAN',
+            msg: msg
           }
-        });
+        );
+      }else{
+        console.log('Listagem: ', data);  
+        msg = 'Cerveja: ' + data.name; 
+        // Enviamos a cerveja para view
+        res.render('beer/show', 
+          {
+            title: 'Adega Be MEAN', 
+            cerveja: data,
+            msg: msg
+          }
+        );
+      }
+    });
 
 Com o show funcionando podemos refatorar nossa view `beer/index.jade` para:
 
@@ -428,7 +426,6 @@ a partir do Model e vice-versa. Logo qualquer modificação no Model irá
 atualizar a View e qualquer modificação na View irá atualizar o Model.
 
 Exemplo:
-    
 
     <label>Seu nome: 
       <input type="text" data-ng-model="nome"> 
