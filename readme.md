@@ -318,6 +318,7 @@ Agora criamos nossa view que também é parecida com o a save.jade:
 
 
 #AngularJs
+!()[https://i.cloudup.com/_O1Y7F0CfP.png]
 
 O AngularJS é um framework criado por Misko Hevery e mantido pelo Google.
 Ele trabalha com uma estrutura de MVC e um ótimo sistema de two way
@@ -503,7 +504,7 @@ preciso colocar meu ng-app acima do TITLE, ficando:
     <html data-ng-app="workshopBeMEAN">
 
 ###Filters
-
+!()[https://i.cloudup.com/830l3-ls6B.png]
 Os filtros serverm para transformar e formatar dados já exibidos para 
 o usuário. Para isso precisamos apenas criar seu módulo, sua função e 
 injetar como dependência na nossa aplicação.
@@ -693,7 +694,6 @@ Depois já podemos utilizá-lo da seguinte forma:
     });
 
 **dica**
-
 Estou usando o serviço do `cors.io` para fazer requisições externas, já que 
 os navegadores implementam a política de mesma origem 
 ([Same-origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)), ou seja, você só pode 
@@ -764,6 +764,7 @@ Ela será chamada na nossa view da seguinte forma:
     <button data-ng-click='rodar()'>Click aqui</button>
 
 ###Rotas
+![](https://i.cloudup.com/bjQM31sTYC.png)
 
 Vamos iniciar esse módulo clonando o seed do AngularJs.
 
@@ -784,8 +785,6 @@ Para iniciar nosso projeto precisamos apenas rodar:
 
 Depois conferir me `localhost:8000/app`.
 
-
-###Routes
 O nosso roteamento se dá apenas no navegador sem que precisemos requisitar 
 nenhum dado no nosso servidor. Já que o AngularJs é um framework para 
 Single Page Applications ele irá gerenciar todas essas rotas localmente, 
