@@ -1357,9 +1357,10 @@ Model user:
 - birth //data de nascimento
 - beers
 
+Na parte de user pode ser usado o Passport ou diretamente o mean.io que já possui um boilerplate usável com o Passport já integrado.
 
+Além dos CRUDs a interface também contará pontos e todos os projetos deverão ser enviados via [github](http://github.com).
 
-
-
+Podendo usar boilerplates de css como: Boostrap, Foundation e outros.
 
 
