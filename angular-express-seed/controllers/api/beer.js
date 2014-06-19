@@ -56,15 +56,12 @@ var _beer = {
     });
   },
   update: function(req, res){
-    console.log('UPDATE');
     // criando o objeto de query
     // para fazer a busca da cerveja a ser alterada
     var query = {_id: req.params.id};
-
     // crio o objeto de modificação da cerveja
     // recebendo os dados via req.body
     var mod = req.body;
-
     Beer.update(query, mod, function (err, data) {
       if (err){
         console.log('Erro: ', err);
@@ -77,7 +74,7 @@ var _beer = {
         msg = data;
       } 
       // enviando a msg para o cliente
-      res.send(msg);
+      res.json(msg);
     });
   },
   delete: function(req, res){

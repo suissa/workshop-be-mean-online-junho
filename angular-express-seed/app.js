@@ -62,6 +62,10 @@ api.beer = require('./controllers/api/beer');
 app.get('/api/beers', api.beer.retrieve);
 app.get('/api/beers/:id', api.beer.findOne);
 app.post('/api/beers', api.beer.create);
+// app.put('/api/beers/:id', function(req, res){
+//   console.log('PUT', req.params);
+//   api.beer.update(req, res);
+// });
 app.put('/api/beers/:id', api.beer.update);
 app.delete('/api/beers/:id', api.beer.delete);
 

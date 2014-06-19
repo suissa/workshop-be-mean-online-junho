@@ -54,21 +54,22 @@ angular.module('myApp.controllers', []).
   controller('BeersCreateCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.workshop = 'Workshop Be MEAN';
     $scope.msg = 'Cadastro de cerveja'
+    var url = '/api/beers/';
+
     $scope.create = function(cerveja){
-      var url = '/api/beers/';
-      
+      var method = 'POST';
       console.table(cerveja);
       $http({
-        method: 'POST',
+        method: method,
         url: url,
         data: cerveja
-      }).
-      success(function(data){
+      })
+      .success(function(data){
         $scope.msg = 'Cerveja ' + cerveja.name + ' criada com SUCESSO';
-      }).
-      error(function(err){
+      })
+      .error(function(err){
         console.log('Error: ', err);
-        $scope.msg = 'Error:  ' + err
+        $scope.msg = 'Error:  ' + err;
       });
     }
 
@@ -88,6 +89,7 @@ angular.module('myApp.controllers', []).
     })
     .error(function(err){
       console.log('Error: ', err);
+      $scope.msg = 'Error:  ' + err;
     });
 
   }]).
@@ -98,9 +100,46 @@ angular.module('myApp.controllers', []).
     // Precisamos buscar nosssa cerveja na nossa API
     var id = $routeParams.id;
     var url = '/api/beers/'+id;
+    var method = 'GET';
+    $http({
+      method: method,
+      url: url
+    })
+    .success(function(data){
+      $scope.msg = 'Cerveja ' + data.name;
+      $scope.cerveja = data;
+    })
+    .error(function(err){
+      console.log('Error: ', err);
+      $scope.msg = 'Error:  ' + err;
+    });
+
+    // Função de alterar
+    $scope.update = function(cerveja){    
+      var method = 'PUT';
+
+      // Preciso deletar o _id do objeto a ser alterado para 
+      // não dar erro com o Mongoose
+      delete cerveja._id;
+
+      var http_settings = {
+        method: method,
+        url: url,
+        data: cerveja
+      };
+      console.log('alterando', http_settings);
+      $http(http_settings)
+      .success(function(data){
+        $scope.msg = 'Cerveja ' + cerveja.name + ' alterada com SUCESSO';
+      })
+      .error(function(err){
+        console.log('Error: ', err);
+        $scope.msg = 'Error:  ' + err;
+      });
+    }
 
   }]).
-  controller('BeersEditCtrl', ['$scope', '$http', '$routeParams', 
+  controller('BeersRemoveCtrl', ['$scope', '$http', '$routeParams', 
     function ($scope, $http, $routeParams) {
     $scope.workshop = 'Workshop Be MEAN';
 

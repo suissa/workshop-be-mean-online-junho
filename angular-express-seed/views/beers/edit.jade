@@ -1,20 +1,27 @@
-h3
-  | {{ workshop }}
+h3 {{ workshop }}
 
-form(action='/api/beers', method='POST')
+h4 {{ msg }}
+
+form.container-small
   label
     | Name:
-    input(type='text', name='name')
+    input(type='text', name='cerveja.name', 
+          data-ng-model='cerveja.name')
   label
     | Category:
-    input(type='text', name='category')
+    input(type='text', name='cerveja.category', 
+          data-ng-model='cerveja.category')
   label
     | Price:
-    input(type='text', name='price')
+    input(type='text', name='cerveja.price', 
+          data-ng-model='cerveja.price')
   label
     | Alcohol:
-    input(type='text', name='alcohol')
+    input(type='text', name='cerveja.alcohol', 
+          data-ng-model='cerveja.alcohol')
   label
     | Description:
-    textarea(name='description')
-  input(type='submit', value='Salvar')
+    textarea(name='description', 
+            data-ng-model='cerveja.description')
+  button(data-ng-click='update(cerveja)')
+    | Salvar

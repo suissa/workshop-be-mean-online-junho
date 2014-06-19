@@ -1052,12 +1052,12 @@ Logo precisamos ir no nosso controller `BeersCreateCtrl` e adicionar a função 
     controller('BeersCreateCtrl', ['$scope', '$http', function ($scope, $http) {
       $scope.workshop = 'Workshop Be MEAN';
       $scope.msg = 'Cadastro de cerveja'
+      var url = '/api/beers/';
       $scope.create = function(cerveja){
-        var url = '/api/beers/';
-        
-        console.log(cerveja);
+        var method = 'POST';
+        console.table(cerveja);
         $http({
-          method: 'POST',
+          method: method,
           url: url,
           data: cerveja
         }).
@@ -1066,12 +1066,26 @@ Logo precisamos ir no nosso controller `BeersCreateCtrl` e adicionar a função 
         }).
         error(function(err){
           console.log('Error: ', err);
-          $scope.msg = 'Error:  ' + err
+          $scope.msg = 'Error:  ' + err;
         });
       }
     }])
 
 Criei um $scope.msg para dar um feedback da ação para o usuário de forma simples. E pronto após isso podemos ir na nossa rota `beers/create` e criarmos nossa cerveja.
+
+####$http
+No `$http` agora estamos passando um objeto com as configurações da requisição:
+    
+    {
+      method: method,
+      url: url,
+      data: cerveja
+    }
+
+Onde:
+- method: é o verbo do HTTP que vamos usar
+- url: é a url que nossa requisição utilizará
+- data: é o objeto a ser enviado pela requisição
 
 ###UPDATE
 Depois de listarmos e criarmos nossas cervejas precisamos poder alterá-las também, então dentro da nossa view `show` vamos adicionar um link para o `UPDATE` e para o `DELETE`:
@@ -1105,7 +1119,7 @@ E agora vamos criar seus controllers:
       var url = '/api/beers/'+id;
 
     }]).
-    controller('BeersEditCtrl', ['$scope', '$http', '$routeParams', 
+    controller('BeersRemoveCtrl', ['$scope', '$http', '$routeParams', 
       function ($scope, $http, $routeParams) {
       $scope.workshop = 'Workshop Be MEAN';
 
@@ -1117,9 +1131,102 @@ E agora vamos criar seus controllers:
 
 Vamos iniciar pela criação da view `edit.jade`:
 
+    h3 {{ workshop }}
+    h4 {{ msg }}
+    form.container-small
+      label
+        | Name:
+        input(type='text', name='cerveja.name', 
+              data-ng-model='cerveja.name')
+      label
+        | Category:
+        input(type='text', name='cerveja.category', 
+              data-ng-model='cerveja.category')
+      label
+        | Price:
+        input(type='text', name='cerveja.price', 
+              data-ng-model='cerveja.price')
+      label
+        | Alcohol:
+        input(type='text', name='cerveja.alcohol', 
+              data-ng-model='cerveja.alcohol')
+      label
+        | Description:
+        textarea(name='description', 
+                data-ng-model='cerveja.description')
+      button(data-ng-click='update(cerveja)')
+        | Salvar
+
+Agora vamos no nosso controller `BeersEditCtrl` e criar a função que vai consultar a cerveja a ser alterada, ou seja, re-usar a função onde mostramos os dados da cerveja. Para isso inicialmente adicionamos o `$routeParams`:
+
+    controller('BeersCreateCtrl', ['$scope', '$http', '$routeParams', 
+      function ($scope, $http, $routeParams)
+
+E chamamos a cerveja a ser alterada para mostrar os valores na view:
+
+    // Precisamos buscar nosssa cerveja na nossa API
+    var id = $routeParams.id;
+    var url = '/api/beers/'+id;
+    var method = 'GET';
+    $http({
+      method: method,
+      url: url
+    })
+    .success(function(data){
+      $scope.msg = 'Cerveja ' + data.name;
+      $scope.cerveja = data;
+    })
+    .error(function(err){
+      console.log('Error: ', err);
+      $scope.msg = 'Error:  ' + err;
+    });
+
+Após buscarmos nossa cerveja a ser alterada, precisamos criar a função de  `UPDATE`:
+
+    // Função de alterar
+    $scope.update = function(cerveja){    
+      method = 'PUT';
+      $http({
+        method: method,
+        url: url,
+        data: cerveja
+      })
+      .success(function(data){
+        $scope.msg = 'Cerveja ' + cerveja.name + ' alterada com SUCESSO';
+      })
+      .error(function(err){
+        console.log('Error: ', err);
+        $scope.msg = 'Error:  ' + err;
+      });
+    }
 
 
+Depois da view vamos criar a função `update` no controller `BeersEditCtrl`:
+
+Porém vamos fazer uma modificação no controller da nossa API `controllers/api/beer.js`:
 
 
+    update: function(req, res){
+      // criando o objeto de query
+      // para fazer a busca da cerveja a ser alterada
+      var query = {_id: req.params.id};
+      // crio o objeto de modificação da cerveja
+      // recebendo os dados via req.body
+      var mod = req.body;
+      Beer.update(query, mod, function (err, data) {
+        if (err){
+          console.log('Erro: ', err);
+          // msg = 'Erro ao atualizar a cerveja!';
+          msg = 0;
+        }else{
+          console.log('Cerveja atualizada com sucesso', data);
+          // msg = 'Cerveja atualizada com sucesso!';    
+          // retorna quantidade de cervejas atualizadas
+          msg = data;
+        } 
+        // enviando a msg para o cliente
+        res.json(msg);
+      });
+    }
 
-
+Mudamos o `res.send` para `res.json` para que nossa requisição do AngularJs não caia no `error`.
