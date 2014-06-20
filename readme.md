@@ -1,5 +1,7 @@
 #Be MEAN - Criando sistemas inteiros apenas com Javascript
-Vamos aprender com esse material a criar um sistema inteiro utilizando apenas nosso querido e amado <3 Javascript. Desde o Frontend até o Banco de Dados.
+Vamos aprender com esse material a criar um sistema inteiro utilizando apenas nosso querido e amado Javascript. Desde o Frontend até o Banco de Dados. 
+
+![](https://i.cloudup.com/WI6pC8JKia.png) 
 
 ##MEAN
 ![](https://i.cloudup.com/Taslszh86K.jpg)
@@ -462,6 +464,8 @@ Com isso eu crio a dependência externamente, independente do código de cada
 função, ficando assim mais simples de se trocar as peças injetadas.
 
 ###Two-way data binding
+!()[https://i.cloudup.com/ydNx3qYuyu.png]
+
 O two-way data binding é uma forma onde a view é gerada pelo template, porém
 sem o merge com o Model, deixando com que os dados possam ser atualizados
 a partir do Model e vice-versa. Logo qualquer modificação no Model irá 
@@ -766,7 +770,7 @@ Ela será chamada na nossa view da seguinte forma:
     <button data-ng-click='rodar()'>Click aqui</button>
 
 ###Rotas
-![](https://i.cloudup.com/bjQM31sTYC.png)
+![](https://i.cloudup.com/M_kYIOWyyn.png)
 
 Vamos iniciar esse módulo clonando o seed do AngularJs.
 
@@ -1429,7 +1433,7 @@ Lembrando que precisamos editar o `controllers/api/beer.js` na função `delete`
 
 
 
-##Projeto Final 30/JULHO/2014
+##Projeto Final 30/JUNHO/2014
 Criar um sistema que seja composto de lojas de cervejas, onde os usuários poderão se cadastrar e falar que tomaram as cervejas. Nisso teremos basiacamente 3 coleções:
 
 - users
@@ -1440,19 +1444,19 @@ Onde beers terá um array que conterá o ObjectId de cada cerveja que eles venda
 
 O sistema deverá ser um Single Page App onde o usuário se cadastrará e pesquisará pelas cervejas, **dica: use regex na query**, a cerveja que ele quiser poderá adicionar em sua coleção. E nessa cerveja além dos seus dados também mostrará quais lojas vendem.
 
-Model beer:
+####Model beer
 - name
 - price
 - alcohol
 - category
 - description
 
-Model shop:
+####Model shop
 - name
 - address //object {logradouro, nome, numero, complemento, bairro, cidade, estado, país}
 - beers
 
-Model user:
+####Model user
 - login
 - email
 - password //criptografado
@@ -1470,6 +1474,7 @@ Podendo usar boilerplates de css como: Boostrap, Foundation e outros.
 
 - Node.js: crypt
 - Mongoose: populate
+- MEAN.io: arquitetura, passport
 
 
 
