@@ -1473,6 +1473,7 @@ Podendo usar boilerplates de css como: Boostrap, Foundation e outros.
 ####Tópicos a serem explicados via Hangouts:
 
 - Node.js: crypt
+- Mongoose: pre save
 - Mongoose: populate
 - MEAN.io: arquitetura, passport
 
