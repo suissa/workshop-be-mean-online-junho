@@ -1433,7 +1433,7 @@ Lembrando que precisamos editar o `controllers/api/beer.js` na função `delete`
 
 
 
-##Projeto Final 30/JUNHO/2014
+##Projeto Final 07/JUlHO/2014
 Criar um sistema que seja composto de lojas de cervejas, onde os usuários poderão se cadastrar e falar que tomaram as cervejas. Nisso teremos basiacamente 3 coleções:
 
 - users
