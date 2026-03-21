@@ -13,6 +13,6 @@
   "author": "Suissa",
   "license": "WTFPL",
   "dependencies": {
-    "mongoose": "^3.8.12"
+    "mongoose": "^9.1.6"
   }
 }
